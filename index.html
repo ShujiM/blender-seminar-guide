@@ -41,6 +41,9 @@
             height: 2rem; 
             border-left: 2px dashed #94a3b8; /* slate-400 */
         }
+        .step-connector.last::before {
+            display: none; /* 最後のステップではコネクタを非表示にする */
+        }
     </style>
 </head>
 <body class="text-slate-800">
@@ -55,7 +58,8 @@
         <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 bg-white p-3 rounded-xl shadow-md sticky top-4 z-10">
             <button data-target="intro" class="nav-button active text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">はじめに</button>
             <button data-target="basics" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">基本操作</button>
-            <button data-target="ai-creation" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">AIで創作 (MCP)</button>
+            <button data-target="generative-ai" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">3D生成AI</button>
+            <button data-target="blender-mcp" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Blender MCP</button>
             <button data-target="usage" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">モデルの活用</button>
             <button data-target="next-steps" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">次のステップ</button>
         </nav>
@@ -91,7 +95,8 @@
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-bold text-slate-700 mb-2">1. Blenderの基本操作</h2>
                     <p class="mb-6 text-slate-600">全ての創作活動の基礎となる、Blenderの基本的な操作方法を学びます。まずはここからBlenderに慣れていきましょう。</p>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         <div class="bg-slate-50 p-4 rounded-lg">
                             <h3 class="font-semibold text-lg mb-2">1.1 UIとビュー操作</h3>
                             <ul class="text-sm space-y-2 text-slate-600">
@@ -123,35 +128,242 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.4 3等身の人間をモデリングする</h3>
+                            <p class="mb-4 text-slate-600">キャラクターモデリングの第一歩として、バランスの取れた3等身（頭一つ分で身体の長さの基準とするプロポーション）の人間モデルを作成する基本的な工程を学びます。左右対称のモデリングに慣れることが重要です。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">基本メッシュの追加と準備:</span>
+                                    <p class="ml-4 text-sm text-slate-600">Blenderを起動し、デフォルトのキューブを削除します。<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > メッシュ > キューブ を追加します。このキューブを体の中心とします。</p>
+                                    <p class="ml-4 text-sm text-slate-600">オブジェクトを選択した状態で、プロパティエディタ（右側のNキーで表示されるサイドバー）のモディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」> 「ジェネレート」>「ミラー」を選択します。これにより、片側を編集するだけで左右対称のモデルが作成されます。「クリッピング」にチェックを入れると、中心で頂点が結合されるため、作業がしやすくなります。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">大まかな形状の作成:</span>
+                                    <p class="ml-4 text-sm text-slate-600">オブジェクトモードから<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードに切り替えます。最初に体のベースとなるキューブを拡大・縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)して、胴体部分のサイズを決めます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">体の各部位（頭、胴体、腕、足）を意識しながら、面（Face）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出して新たな面を作成します。押し出し後に移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)や拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)を繰り返して、徐々に人型に近づけていきます。</p>
+                                    <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+R</span>でループカットを入れ、頂点や辺を移動・調整することで、関節部分や曲線を作っていきます。例えば、腕の付け根やひざ、ひじのあたりにループカットを追加すると、後からの整形がしやすくなります。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">プロポーションの調整:</span>
+                                    <p class="ml-4 text-sm text-slate-600">視点を頻繁に変えながら、全体のプロポーションが3等身になるように意識して調整します。頭の大きさを基準に、胴体が約1つ半、足が約1つ半の長さになるよう心がけましょう。編集モードで頂点（Vertex）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>で移動させることで、細かく形状を調整できます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ディテールの追加（オプション）:</span>
+                                    <p class="ml-4 text-sm text-slate-600">必要に応じて、肩、腰、手、足の指などのディテールを追加していきます。細分化サーフェスモディファイアー（サブディビジョンサーフェス）を追加すると、モデルを滑らかに表示できます。</p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.5 UV展開をする</h3>
+                            <p class="mb-4 text-slate-600">UV展開とは、3Dモデルの表面を2D平面に「切り開く」作業です。これにより、テクスチャ（画像）をモデルに正確に貼り付けることができるようになります。服の型紙を作るイメージです。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">UV編集ワークスペースへの切り替え:</span>
+                                    <p class="ml-4 text-sm text-slate-600">Blenderの上部にあるワークスペースのタブから「UV Editing」を選択します。画面が2つに分割され、左側にUVエディタ、右側に3Dビューポートが表示されます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">シーム（縫い目）のマーク:</span>
+                                    <p class="ml-4 text-sm text-slate-600">3Dビューポートでオブジェクトを<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードにします。辺（Edge）を選択モードに切り替え、UV展開したい部分の「切り開く」辺を選択します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">選択した辺の上で右クリックし、「**シームをマーク**」を選択します。これにより、その辺が赤く表示され、UV展開時の「切り目」となります。衣服の縫い目を想像すると分かりやすいでしょう。</p>
+                                    <p class="ml-4 text-sm text-slate-600">全身のモデルの場合、腕や脚の内側、背中の中央、首の付け根などにシームを入れるのが一般的です。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">UV展開の実行:</span>
+                                    <p class="ml-4 text-sm text-slate-600">全ての面を選択（<span class="font-mono bg-slate-100 px-1 rounded">Aキー</span>）した状態で、3Dビューポートのメニューから「UV」>「**展開**」を選択します。または、<span class="font-mono bg-slate-100 px-1 rounded">Uキー</span>を押して「展開」を選択します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">これにより、UVエディタ（左側の画面）に、切り開かれたモデルの2D形状が表示されます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">UVアイランドの整理:</span>
+                                    <p class="ml-4 text-sm text-slate-600">UVエディタ上で、展開されたUVアイランド（切り開かれた各パーツ）を移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)、回転(<span class="font-mono bg-slate-100 px-1 rounded">Rキー</span>)、拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)して、テクスチャスペースに効率よく配置します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">UVエディタのメニュー「UV」>「UVをパック」を使用すると、自動的にUVアイランドをスペース内に配置してくれます。</p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.6 テクスチャの作成と適用</h3>
+                            <p class="mb-4 text-slate-600">テクスチャは、モデルの表面に色や質感を加えるための画像データです。UV展開したモデルにテクスチャを貼り付け、よりリアルな表現を目指します。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">テクスチャ画像の準備:</span>
+                                    <p class="ml-4 text-sm text-slate-600">画像編集ソフトウェア（Photoshop, GIMPなど）や、テクスチャペイント機能（Blender内蔵）を使用して、モデルに貼り付けるための画像ファイル（PNG, JPGなど）を作成します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">UVエディタからUVレイアウトを画像としてエクスポートし、それをガイドにテクスチャを描き込むのが一般的です。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">マテリアルの作成とノードの設定:</span>
+                                    <p class="ml-4 text-sm text-slate-600">Blenderの上部にあるワークスペースのタブから「Shading」を選択します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">モデルを選択し、マテリアルプロパティ（球体アイコン⚪）から新しいマテリアルを追加します。ノードエディタ（Shadingワークスペースの下部）で、デフォルトで作成されている「プリンシプルBSDF」ノードに「画像テクスチャ」ノードを追加し、その「カラー」出力を「プリンシプルBSDF」の「ベースカラー」入力に接続します。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">テクスチャの読み込みと適用:</span>
+                                    <p class="ml-4 text-sm text-slate-600">「画像テクスチャ」ノードの「開く」ボタンをクリックし、準備したテクスチャ画像ファイルを読み込みます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">これで、UV展開されたモデルにテクスチャが適用され、ビューポート上で確認できるようになります。必要に応じて、ノーマルマップやラフネスマップなどの他のテクスチャも同様に設定することで、より複雑な質感を表現できます。</p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.7 リグ（Armature）の設定</h3>
+                            <p class="mb-4 text-slate-600">リグ（Armature/骨格）は、作成したモデルをアニメーションさせるための「骨」です。これにより、キャラクターを柔軟に動かすことができるようになります。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">アーマチュアの追加:</span>
+                                    <p class="ml-4 text-sm text-slate-600">オブジェクトモードで、<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > アーマチュア > シングルボーン を選択し、ボーンを追加します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">追加したボーンを選択し、プロパティエディタ（右側の緑の人型アイコン👤）の「ビューポート表示」セクションで「最前面」にチェックを入れると、モデルの中に埋もれずにボーンが見えるようになります。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ボーンの配置:</span>
+                                    <p class="ml-4 text-sm text-slate-600">アーマチュアを<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードに切り替え、ボーンの端点を選択して移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)、回転(<span class="font-mono bg-slate-100 px-1 rounded">Rキー</span>)、拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)を行い、人体の骨格に沿って配置していきます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ボーンの端点から<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出すと、新しいボーンを作成できます。首、背骨、腕、脚、指など、必要なボーンを階層構造（親子関係）で作成していきます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ミラーモディファイアーと同様に、アーマチュアのプロパティ（緑の人型アイコン👤）の「X軸ミラー」にチェックを入れると、左右対称でボーンを配置できます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ペアレントとウェイトペイント:</span>
+                                    <p class="ml-4 text-sm text-slate-600">まずオブジェクトモードに戻ります（<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>）。</p>
+                                    <p class="ml-4 text-sm text-slate-600">最初にモデル（メッシュ）を選択し、次に<span class="font-mono bg-slate-100 px-1 rounded">Shiftキー</span>を押しながら作成したアーマチュアを選択します。</p>
+                                    <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+P</span>キーを押し、メニューから「**自動ウェイトで**」を選択します。これにより、モデルの頂点が最も近いボーンに自動的に追従するように設定されます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">必要に応じて、「ウェイトペイントモード」に切り替えて、各ボーンがモデルのどの部分に影響を与えるかを細かく調整できます。赤（強い影響）から青（影響なし）のグラデーションで表示されます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ポーズモードでの確認:</span>
+                                    <p class="ml-4 text-sm text-slate-600">アーマチュアを選択した状態で、オブジェクトモードから「ポーズモード」に切り替えます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">各ボーンを選択して回転(<span class="font-mono bg-slate-100 px-1 rounded">Rキー</span>)させてみて、モデルが意図通りに変形するか確認します。不自然な変形があれば、ウェイトペイントモードで調整します。</p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section id="ai-creation" class="content-section">
+            <section id="generative-ai" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">2. Blender MCPでAIと共に創る</h2>
-                     <p class="mb-8 text-slate-600">自然言語（プロンプト）でBlenderを操作できるアドオン「Blender MCP」の導入から実践までを解説します。AIとの対話を通じて、新しい創作体験をしてみましょう。</p>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">2. 代表的な3D生成AIの活用</h2>
+                    <p class="mb-6 text-slate-600">テキストや2D画像から3Dモデルを生成するAIツールが急速に進化しています。これらのツールは、アイデア出しやベースモデルの作成を大幅に効率化し、Blenderでの詳細な作業へと繋げることができます。</p>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">2.1 hyper3d.ai</h3>
+                            <p class="mb-4 text-slate-600">テキストプロンプトや画像を入力することで、高品質な3Dモデルを生成するツールです。特に写実的なモデルの生成に強みを持つことがあります。</p>
+                            <div class="bg-slate-50 p-4 rounded-lg space-y-2">
+                                <h4 class="font-semibold">使用方法の概要</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-600">
+                                    <li>Webサイトにアクセスし、アカウントを作成・ログインします。</li>
+                                    <li>テキストで生成したいオブジェクトの詳細な説明を入力します（例: 「A photorealistic red car with chrome wheels」）。</li>
+                                    <li>または、2D画像をアップロードして、それを基に3Dモデルを生成します。</li>
+                                    <li>生成プロセスを開始し、しばらく待つと3Dモデルが完成します。</li>
+                                    <li>生成されたモデルは、通常GLBやFBXなどの形式でダウンロードできます。</li>
+                                    <li>ダウンロードしたモデルをBlenderにインポートし、さらに編集や調整を行います。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">2.2 studio.tripo3d.ai</h3>
+                            <p class="mb-4 text-slate-600">Tripo AIは、特に高速かつ高品質な3Dモデル生成に注力しているAIツールです。シンプルなインターフェースで直感的に利用できます。</p>
+                            <div class="bg-slate-50 p-4 rounded-lg space-y-2">
+                                <h4 class="font-semibold">使用方法の概要</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-600">
+                                    <li>Tripo AI StudioのWebサイトにアクセスし、利用を開始します。</li>
+                                    <li>生成したい3Dモデルのコンセプトをテキストプロンプトで記述します。</li>
+                                    <li>AIがモデルを生成し始めます。高速な生成が特徴です。</li>
+                                    <li>生成されたモデルのプレビューを確認し、必要であれば調整します。</li>
+                                    <li>GLBやOBJなどの標準的な3Dファイル形式でモデルをエクスポートします。</li>
+                                    <li>Blenderに取り込み、マテリアルの微調整、追加のモデリング、シーンへの統合などを行います。</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">2.3 meshy.ai</h3>
+                            <p class="mb-4 text-slate-600">テキストから3D、画像から3D、さらにはテキストからテクスチャを生成する機能など、多様な生成オプションを持つAIプラットフォームです。ゲームアセット制作にも活用されます。</p>
+                            <div class="bg-slate-50 p-4 rounded-lg space-y-2">
+                                <h4 class="font-semibold">使用方法の概要</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-600">
+                                    <li>Meshy.aiのWebサイトにアクセスし、サインアップ・ログインします。</li>
+                                    <li>「Text to 3D」でテキストプロンプトからモデルを生成したり、「Image to 3D」で画像からモデルを生成したりします。</li>
+                                    <li>特に「Text to Texture」機能は、既存の3Dモデルにプロンプトでテクスチャを適用できるため、Blenderとの連携に非常に有効です。</li>
+                                    <li>生成されたモデルやテクスチャはダウンロード可能です。</li>
+                                    <li>Blenderにインポートして、メッシュの最適化、リトポロジー、リギング、アニメーションなどの後処理を行います。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <p class="mt-8 text-slate-700 font-semibold">これらの生成AIツールは、完璧なモデルを一発で生成するものではなく、Blenderでの後処理（クリーニング、最適化、UV展開、リギングなど）と組み合わせることで、その真価を発揮します。</p>
+                </div>
+            </section>
+
+            <section id="blender-mcp" class="content-section">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">3. Blender MCPでAIと共に創る</h2>
+                     <p class="mb-8 text-slate-600">Blender MCPは、自然言語（プロンプト）でBlenderを操作できるアドオンです。Blenderの操作知識が少なくても、AIとの対話を通じて直感的にモデリングを進めることができます。ここでは、特にClaude Desktopと連携してBlender MCPを起動し、シンプルなシーンを作成する手順を解説します。</p>
+                    
+                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">3.1 Claude Desktopと連携したBlender MCPの起動</h3>
+                    <p class="mb-4 text-slate-600">Blender MCPは、BlenderとLLM（大規模言語モデル）を繋ぐインターフェースとして機能します。Claude Desktopのようなローカルで動作するLLM環境と連携することで、よりプライベートかつ柔軟な形でAIを活用できます。</p>
+                    <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                        <li>
+                            <span class="font-semibold">Claude Desktopのインストールと準備:</span>
+                            <p class="ml-4 text-sm text-slate-600">まず、Claude Desktopアプリケーションをインストールし、起動します。Blender MCPとの連携に必要な設定（APIキーの発行や、ローカルサーバーの立ち上げなど）があれば、Claude Desktopのドキュメントに従って完了させてください。</p>
+                            <p class="ml-4 text-sm text-slate-600">Blender MCPがClaude DesktopのAPIエンドポイントにアクセスできるよう、ネットワーク設定（例: ファイアウォールの許可、ポート指定など）を確認します。</p>
+                        </li>
+                        <li>
+                            <span class="font-semibold">Blender MCPアドオンの設定:</span>
+                            <p class="ml-4 text-sm text-slate-600">Blenderを起動し、「編集」>「プリファレンス」>「アドオン」からBlender MCPアドオンがインストールされ、有効になっていることを確認します。</p>
+                            <p class="ml-4 text-sm text-slate-600">Blender MCPのアドオン設定内で、LLMサービスとしてClaude DesktopのローカルAPIエンドポイント（URL）と必要な認証情報（もしあれば）を設定します。これにより、Blender MCPがClaude Desktopと通信できるようになります。</p>
+                        </li>
+                        <li>
+                            <span class="font-semibold">Blender MCPパネルの表示と対話開始:</span>
+                            <p class="ml-4 text-sm text-slate-600">3Dビューポートの右側サイドバー（<span class="font-mono bg-slate-100 px-1 rounded">Nキー</span>で表示/非表示）にBlender MCPのパネルが表示されていることを確認します。</p>
+                            <p class="ml-4 text-sm text-slate-600">パネル内のテキスト入力欄に最初のプロンプトを入力し、AIとの対話を開始します。これにより、Claude DesktopがバックエンドでBlenderの操作指示を生成し、Blender MCPを通じて実行されます。</p>
+                        </li>
+                    </ol>
+
+                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200 mt-10">3.2 MCPを利用したシンプルなシーン作成</h3>
+                    <p class="mb-4 text-slate-600">ここでは、Blender MCPを使って基本的な部屋のようなシーンを作成し、テクスチャを適用するまでの一連の工程を体験します。</p>
                     <div class="flex flex-col items-center">
                         <div class="w-full max-w-md">
                             <div class="relative mb-8 text-center step-connector">
                                 <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">1</div>
-                                <h3 class="mt-3 font-semibold">導入と設定</h3>
-                                <p class="text-sm text-slate-500">GitHubからアドオンをDLし、Blenderにインストール。APIキーを設定します。</p>
+                                <h3 class="mt-3 font-semibold">シンプルな円柱の追加</h3>
+                                <p class="text-sm text-slate-500">Blender MCPのパネルに以下のプロンプトを入力して実行します。</p>
+                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Add a cylinder." (円柱を追加して)</div>
                             </div>
                             <div class="relative mb-8 text-center step-connector">
                                 <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">2</div>
-                                <h3 class="mt-3 font-semibold">プロンプト入力</h3>
-                                <p class="text-sm text-slate-500">サイドバー(Nキー)に表示されるパネルに、実行したい操作をテキストで入力します。</p>
-                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Create a house with a roof and windows."</div>
+                                <h3 class="mt-3 font-semibold">床の作成</h3>
+                                <p class="text-sm text-slate-500">次に、床となる平面を作成します。サイズを調整し、円柱の下に配置します。</p>
+                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Add a plane and scale it large to be a floor." (平面を追加して、床になるように大きく拡大して)</div>
                             </div>
                              <div class="relative mb-8 text-center step-connector">
                                 <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">3</div>
-                                <h3 class="mt-3 font-semibold">コマンド実行</h3>
-                                <p class="text-sm text-slate-500">「Generate」や「Execute」ボタンでAIに指示を送信します。</p>
+                                <h3 class="mt-3 font-semibold">壁の作成</h3>
+                                <p class="text-sm text-slate-500">床の周りに壁を作成します。複数の壁を個別に作成するか、大きな平面から押し出す指示も可能です。</p>
+                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Create four walls around the floor." (床の周りに4つの壁を作成して)</div>
+                                <p class="mt-2 text-sm text-slate-500">または、"Add a cube, scale it thin and tall, then duplicate it to form walls." (キューブを追加し、薄く高く拡大し、複製して壁を形成して)など。</p>
                             </div>
-                            <div class="relative text-center">
+                            <div class="relative mb-8 text-center step-connector">
                                 <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">4</div>
-                                <h3 class="mt-3 font-semibold">確認と改良</h3>
-                                <p class="text-sm text-slate-500">生成結果を確認し、追加の指示や手動での調整でモデルを完成させます。</p>
+                                <h3 class="mt-3 font-semibold">テクスチャの準備（Poly Havenから）</h3>
+                                <p class="text-sm text-slate-500">外部サイトから高品質なテクスチャをダウンロードします。今回は**Poly Haven**を利用します。</p>
+                                <ul class="list-disc list-inside text-sm text-slate-600 mt-2">
+                                    <li>Poly Havenのウェブサイト ([https://polyhaven.com/textures](https://polyhaven.com/textures)) にアクセスします。</li>
+                                    <li>「brick (レンガ)」のようなキーワードで検索し、気に入ったレンガのテクスチャセット（Albedo/Diffuse, Normal, Roughnessなどの画像が含まれる）をダウンロードします。</li>
+                                    <li>ダウンロードしたファイルは、Blenderからアクセスしやすい場所に保存しておきます。</li>
+                                </ul>
+                            </div>
+                            <div class="relative mb-8 text-center step-connector">
+                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">5</div>
+                                <h3 class="mt-3 font-semibold">テクスチャマテリアルの作成と適用</h3>
+                                <p class="text-sm text-slate-500">ダウンロードしたテクスチャを使ってBlender MCP経由でマテリアルを作成し、床に適用します。事前に床オブジェクトを選択しておきましょう。</p>
+                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Create a material named 'BrickFloor' using the downloaded brick textures and apply it to the selected object." (ダウンロードしたレンガテクスチャを使って「BrickFloor」というマテリアルを作成し、選択したオブジェクトに適用して)</div>
+                                <p class="mt-2 text-sm text-slate-500">Blender MCPがテクスチャファイルのパスを認識できない場合、手動でマテリアルノードにテクスチャを接続する必要があるかもしれません。</p>
+                            </div>
+                            <div class="relative text-center last">
+                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">6</div>
+                                <h3 class="mt-3 font-semibold">最終確認と調整</h3>
+                                <p class="text-sm text-slate-500">作成されたシーンを確認し、必要に応じてBlenderの通常の機能で微調整を行います。</p>
                             </div>
                         </div>
                     </div>
@@ -160,7 +372,7 @@
             
             <section id="usage" class="content-section">
                  <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">3. 3Dモデルの活用</h2>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">4. 3Dモデルの活用</h2>
                     <p class="mb-6 text-slate-600">作成した3DモデルをBlenderの外の世界で活用する方法を学びます。ファイル形式の選択から、WebやVRChatへの具体的な導入手順までを解説します。</p>
                     
                     <div class="mb-8">
