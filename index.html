@@ -60,7 +60,8 @@
             <button data-target="basics" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">基本操作</button>
             <button data-target="generative-ai" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">3D生成AI</button>
             <button data-target="blender-mcp" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Blender MCP</button>
-            <button data-target="usage" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">モデルの活用</button>
+            <button data-target="web-usage" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Webでの活用</button>
+            <button data-target="vrchat-guide" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">VRChatモデル準備</button>
             <button data-target="next-steps" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">次のステップ</button>
         </nav>
 
@@ -123,7 +124,6 @@
                                 <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Eキー</span>: 押し出し</li>
                                 <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+R</span>: ループカット</li>
                                 <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Iキー</span>: 面を差し込む</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+B</span>: ベベル</li>
                                 <li><span class="font-semibold">右クリック</span>: コンテキストメニュー (細分化など)</li>
                             </ul>
                         </div>
@@ -348,7 +348,7 @@
                                 <h3 class="mt-3 font-semibold">テクスチャの準備（Poly Havenから）</h3>
                                 <p class="text-sm text-slate-500">外部サイトから高品質なテクスチャをダウンロードします。今回は**Poly Haven**を利用します。</p>
                                 <ul class="list-disc list-inside text-sm text-slate-600 mt-2">
-                                    <li>Poly Havenのウェブサイト ([https://polyhaven.com/textures](https://polyhaven.com/textures)) にアクセスします。</li>
+                                    <li>Poly Havenのウェブサイト (<a href="https://polyhaven.com/textures" target="_blank" class="text-blue-600 hover:underline">https://polyhaven.com/textures</a>) にアクセスします。</li>
                                     <li>「brick (レンガ)」のようなキーワードで検索し、気に入ったレンガのテクスチャセット（Albedo/Diffuse, Normal, Roughnessなどの画像が含まれる）をダウンロードします。</li>
                                     <li>ダウンロードしたファイルは、Blenderからアクセスしやすい場所に保存しておきます。</li>
                                 </ul>
@@ -370,10 +370,10 @@
                 </div>
             </section>
             
-            <section id="usage" class="content-section">
+            <section id="web-usage" class="content-section">
                  <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">4. 3Dモデルの活用</h2>
-                    <p class="mb-6 text-slate-600">作成した3DモデルをBlenderの外の世界で活用する方法を学びます。ファイル形式の選択から、WebやVRChatへの具体的な導入手順までを解説します。</p>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">4. Webでの活用</h2>
+                    <p class="mb-6 text-slate-600">作成した3DモデルをWebサイト上で魅力的に表示するための方法を学びます。様々なプラットフォームやライブラリを活用し、あなたの作品を世界に公開しましょう。</p>
                     
                     <div class="mb-8">
                         <h3 class="text-xl font-semibold mb-3 text-slate-600">ファイル形式の比較</h3>
@@ -412,36 +412,182 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">Webでの利用</h3>
-                            <div class="space-y-4">
-                                <div class="bg-slate-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold">Sketchfab</h4>
-                                    <p class="text-sm text-slate-500">モデルをアップロードするだけで簡単にWeb公開・共有できるプラットフォーム。</p>
-                                </div>
-                                 <div class="bg-slate-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold">Three.js / Babylon.js</h4>
-                                    <p class="text-sm text-slate-500">JavaScriptライブラリを使い、インタラクティブな3D体験をWebサイトに実装。</p>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-600">Webでの利用方法</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-50 p-4 rounded-lg flex flex-col gap-2">
+                                <h4 class="font-semibold">Sketchfab</h4>
+                                <p class="text-sm text-slate-500">オンラインの3Dモデル共有プラットフォーム。Blenderから直接エクスポートしたモデルをアップロードするだけで、Web上で公開・共有できます。</p>
+                                <a href="https://sketchfab.com/" target="_blank" rel="noopener noreferrer" class="self-start px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">公式サイトへ</a>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg flex flex-col gap-2">
+                                <h4 class="font-semibold">PlayCanvas</h4>
+                                <p class="text-sm text-slate-500">Webブラウザ上で動作する強力な3Dゲームエンジン。リアルタイムコラボレーション機能も魅力です。</p>
+                                <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4">
+                                    <li>BlenderからGLB/FBX形式でエクスポートします。</li>
+                                    <li>PlayCanvasエディタにモデルをインポートし、シーンに配置します。</li>
+                                    <li>マテリアルやライト、JavaScriptスクリプトでインタラクティブな要素を追加できます。</li>
+                                    <li>ワンクリックでWebサイトとして公開が可能です。</li>
+                                </ul>
+                                <a href="https://playcanvas.com/" target="_blank" rel="noopener noreferrer" class="self-start px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">公式サイトへ</a>
+                            </div>
+                             <div class="bg-slate-50 p-4 rounded-lg flex flex-col gap-2">
+                                <h4 class="font-semibold">Three.js / Babylon.js</h4>
+                                <p class="text-sm text-slate-500">JavaScriptライブラリを使い、インタラクティブな3D体験をWebサイトに直接実装します。GLB形式が特に推奨されます。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">Three.js 公式</a>
+                                    <a href="https://www.babylonjs.com/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">Babylon.js 公式</a>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">VRChatへの道筋</h3>
-                             <div class="space-y-4">
-                                <div class="bg-slate-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold">1. Blender → FBXエクスポート</h4>
-                                    <p class="text-sm text-slate-500">モデル、ボーン、ウェイトを設定しFBX形式で出力。</p>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold">2. Unityでの設定</h4>
-                                    <p class="text-sm text-slate-500">VRChat SDKを導入し、マテリアルやリグ(Humanoid)を設定。</p>
-                                </div>
-                                 <div class="bg-slate-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold">3. VRChatへアップロード</h4>
-                                    <p class="text-sm text-slate-500">SDKからアップロード。パフォーマンス最適化が重要。</p>
-                                </div>
-                            </div>
+                    </div>
+                    <p class="mt-8 text-slate-700 font-semibold">VRChatでの活用方法については、「<span class="text-blue-600 font-bold cursor-pointer" onclick="switchTab('vrchat-guide')">VRChatモデル準備</span>」セクションで詳しく解説しています。ぜひそちらもご覧ください！</p>
+                 </div>
+            </section>
+            
+            <section id="vrchat-guide" class="content-section">
+                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">5. VRChatモデル準備</h2>
+                    <p class="mb-6 text-slate-600">Blenderで作成した3DモデルをソーシャルVRプラットフォーム「VRChat」で利用するための具体的な手順を学びます。Unityを経由したモデルのセットアップとアップロードのプロセスを詳細に解説します。</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2">5.1 Blender → FBXエクスポート</h3>
+                            <p class="text-sm text-slate-500">Blenderで作成したモデルをUnityで読み込むために、互換性の高いFBX形式でエクスポートします。</p>
+                            <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
+                                <li>**ファイル > エクスポート > FBX (.fbx)** を選択します。</li>
+                                <li>**Transform (トランスフォーム)**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>**Scale (スケール)**: 通常、Unityでは1単位が1メートルに相当するため、Blenderのシーンスケールに合わせて適切な値を設定します（例: `All: 0.01` でUnityの1単位がBlenderの1メートルになるように調整する場合が多いです）。</li>
+                                        <li>**Apply Transform (トランスフォームを適用)**: チェックを入れることで、Blender上で行ったオブジェクトのスケール、回転、位置の変更をモデルのジオメトリに焼き付けます。Unityでのインポート時の予期せぬ問題を防ぐために推奨されます。</li>
+                                    </ul>
+                                </li>
+                                <li>**Objects (オブジェクト)**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>**Selected Objects (選択したオブジェクト)**: エクスポートしたいメッシュ、アーマチュア、ライト、カメラなどをBlender上で事前に選択し、このオプションにチェックを入れることで、不要な要素が含まれるのを防ぎます。</li>
+                                        <li>**Object Types (オブジェクトタイプ)**: エクスポートに含める要素（Mesh, Armature, Emptyなど）を選択します。通常、アバターの場合はメッシュとアーマチュアを含めます。</li>
+                                    </ul>
+                                </li>
+                                <li>**Armature (アーマチュア)**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>**Add Leaf Bones (末端ボーンを追加)**: チェックを外すことを推奨します。Unityが不要なボーンを追加するのを防ぎます。</li>
+                                        <li>**Primary Bone Axis / Secondary Bone Axis**: Unityでのボーンの向きがBlenderと異なる場合があるため、モデルが意図しない向きになる場合は調整が必要ですが、多くの場合デフォルトで問題ありません。</li>
+                                        <li>（アバターの場合）**Apply Modifiers (モディファイアーを適用)**: 特にSubdivision Surfaceモディファイアーを使っている場合、Unityに持ち込む前に適用しておくことを検討します。これにより、Unityでの表示がBlenderでのプレビューに近くなりますが、ポリゴン数が増える点に注意が必要です。</li>
+                                    </ul>
+                                </li>
+                                <li>**Animation (アニメーション)**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>作成したアニメーション（例: 歩行アニメーション、表情アニメーション）を含める場合はチェックを入れます。</li>
+                                        <li>**NLA Strips (NLAストリップ)**: 非線形アニメーション（NLAエディタで管理している場合）を含めるかどうか。</li>
+                                        <li>**All Actions (全てのアクション)**: 複数のアニメーションアクションがある場合、全て含めるか選択できます。</li>
+                                    </ul>
+                                </li>
+                                <li>以上の設定後、「FBXをエクスポート」をクリックしてファイルを保存します。</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2">5.2 Unityでの設定</h3>
+                            <p class="text-sm text-slate-500">BlenderからエクスポートしたモデルをVRChatで動作させるために、Unityでの詳細なセットアップを行います。</p>
+                            <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
+                                <li>**Unity HubとUnity Editorのインストール**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>VRChatが公式で推奨しているバージョンのUnity HubとUnity Editorをインストールします。VRChatの公式ドキュメントで最新の推奨バージョンを確認してください。</li>
+                                        <li>新しいUnityプロジェクトを作成します（3D Coreなど基本的なテンプレートでOK）。</li>
+                                    </ul>
+                                </li>
+                                <li>**VRChat SDKの導入**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>VRChat公式サイトからVRChat SDK（アバター用、またはワールド用）をダウンロードします。</li>
+                                        <li>Unityプロジェクトを開き、ダウンロードしたSDKの`.unitypackage`ファイルを`Assets`フォルダにドラッグ＆ドロップするか、Unityメニューバーの`Assets` > `Import Package` > `Custom Package...`から選択してインポートします。</li>
+                                        <li>SDKをインポートすると、通常`VRChat SDK`メニューがUnityのメニューバーに表示されます。</li>
+                                    </ul>
+                                </li>
+                                <li>**FBXモデルのインポート**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>BlenderからエクスポートしたFBXファイルをUnityの`Assets`フォルダにドラッグ＆ドロップします。</li>
+                                    </ul>
+                                </li>
+                                <li>**モデルのRig設定**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>UnityのProjectビューでインポートしたFBXモデルを選択し、Inspectorビューの「**Rig**」タブをクリックします。</li>
+                                        <li>「**Animation Type (アニメーションタイプ)**」を「**Humanoid (ヒューマノイド)**」（人型アバターの場合）に設定し、「**Generate Generic Avatar (汎用アバターを生成)**」ではなく「**Create From This Model (このモデルから作成)**」を選択し、「Apply」をクリックします。</li>
+                                        <li>「**Configure Avatar (アバターを設定)**」をクリックし、ボーンが正しくマッピングされているか確認します。Unityが自動で認識しきれない場合は、手動で対応するボーンをドラッグ＆ドロップしてマッピングを修正します。特に指などの小さなボーンが正しく認識されていないことがあります。最後に「Done」をクリックして保存します。</li>
+                                    </ul>
+                                </li>
+                                <li>**Materials設定**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>「Materials (マテリアル)」タブをクリックします。</li>
+                                        <li>「**Extract Materials (マテリアルを抽出)**」をクリックして、FBXファイル内に埋め込まれたマテリアルをUnityプロジェクト内に独立したマテリアルファイルとして抽出します。これにより、マテリアルの編集が容易になります。</li>
+                                        <li>抽出された各マテリアルを選択し、InspectorでシェーダーをVRChatに適したシェーダー（例: `VRChat/Standard`や、より軽量な`lilToon`、`Arktoon`などを別途インポートして使用）に設定し、テクスチャを割り当てます。テクスチャの`Filter Mode`は`Bilinear`、`Wrap Mode`は`Repeat`が一般的です。</li>
+                                    </ul>
+                                </li>
+                                <li>**VRChat Componentの追加**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>HierarchyビューにFBXモデル（またはそのルートオブジェクト）をドラッグ＆ドロップしてシーンに配置します。</li>
+                                        <li>シーン上のモデルを選択し、Inspectorビュー下部の「Add Component (コンポーネントを追加)」から以下を追加します。
+                                            <ul class="list-disc list-inside ml-4">
+                                                <li>アバターの場合: `VRC Avatar Descriptor`</li>
+                                                <li>ワールドの場合: `VRC Scene Descriptor`</li>
+                                            </ul>
+                                        </li>
+                                        <li>`VRC Avatar Descriptor`では、**Viewpoint (視点)**（アバターの目の位置）、**Lip Sync (リップシンク)**（口の動き）、**Expressions (表情)**（カスタム表情メニュー）などを設定します。</li>
+                                        <li>`VRC Scene Descriptor`では、ワールドのスポーンポイントや環境設定などを行います。</li>
+                                    </ul>
+                                </li>
+                                <li>**PhysBoneの設定**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>髪の毛や揺れるアクセサリーなど、物理演算で動かしたいボーンを持つオブジェクトには、そのボーンがアタッチされているGameObjectに`VRC Phys Bone`コンポーネントを追加します。</li>
+                                        <li>`VRC Phys Bone`のプロパティで、揺れの強度や重力、コライダー設定などを調整し、自然な揺れを再現します。モデルの体にめり込むのを防ぐために、適切なコライダー（Capsule Colliderなど）を設定することも重要です。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                         <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2">5.3 VRChatへアップロード</h3>
+                            <p class="text-sm text-slate-500">Unityでのセットアップが完了したら、いよいよVRChatにモデルを公開します。アップロード前に最終確認と最適化を行いましょう。</p>
+                            <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
+                                <li>**VRChat SDKのコントロールパネルを開く**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>Unityメニューバーの`VRChat SDK` > `Show Control Panel`を選択します。</li>
+                                    </ul>
+                                </li>
+                                <li>**Authentication (認証)**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>「Authentication」タブで、VRChatアカウントのユーザー名とパスワードを入力し、ログインします。</li>
+                                    </ul>
+                                </li>
+                                <li>**Build & Upload (ビルドとアップロード)**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>「Builder」タブに移動します。</li>
+                                        <li>シーンに`VRC Avatar Descriptor`または`VRC Scene Descriptor`が正しく設定されていれば、ここにモデルのステータスが表示されます。</li>
+                                        <li>**Performance (パフォーマンス)**: 「Performance」タブで、モデルのパフォーマンスランク（Very Poor, Poor, Medium, Good, Excellent）を確認します。VRChatでは、多くのユーザーが快適に利用できるよう、モデルの最適化が非常に重要です。
+                                            <ul class="list-disc list-inside ml-4">
+                                                <li>**ポリゴン数**: 可能な限り削減します。</li>
+                                                <li>**マテリアル数**: ドローコールを減らすため、マテリアル数を統合することを検討します（アトラス化など）。</li>
+                                                <li>**物理演算の負荷**: PhysBoneのコンポーネント数やボーン数もパフォーマンスに影響します。</li>
+                                            </ul>
+                                        </li>
+                                        <li>「Build & Publish (ビルドして公開)」または「Build & Upload (ビルドしてアップロード)」ボタンをクリックします。これは、アバターかワールドか、あるいは既にアップロード済みかどうかによって表示が異なります。</li>
+                                        <li>ビルドプロセスが開始されます。これにはPCのスペックやモデルの複雑さによって数分から数十分かかる場合があります。</li>
+                                    </ul>
+                                </li>
+                                <li>**情報の入力**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>ビルドが完了すると、アップロードのための情報入力画面が表示されます。</li>
+                                        <li>**Name (名前)**: モデルの名前を入力します。</li>
+                                        <li>**Description (説明)**: モデルの説明文を入力します。</li>
+                                        <li>**Thumbnail (サムネイル)**: モデルのサムネイル画像をUnityのシーンビューで設定し、「Set Thumbnail in Scene」をクリックして設定します。これはVRChat内でモデルを選択する際に表示されます。</li>
+                                        <li>**Privacy (公開設定)**: 「Public (公開)」（誰でも利用可能）か「Private (非公開)」（自分だけ利用可能）を選択します。テスト中はPrivateにしておくのが一般的です。</li>
+                                        <li>**Content Warnings (コンテンツ警告)**: モデルの内容に応じて適切な警告を設定します。</li>
+                                    </ul>
+                                </li>
+                                <li>**アップロード完了**:
+                                    <ul class="list-circle list-inside ml-4">
+                                        <li>全ての情報を入力し、「Upload」ボタンをクリックします。</li>
+                                        <li>アップロードが完了すると、「Upload Complete!」のようなメッセージが表示され、VRChat内で自分のモデルとして選択・使用できるようになります。</li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                  </div>
@@ -499,6 +645,9 @@ document.addEventListener('DOMContentLoaded', () => {
             switchTab(targetId);
         }
     });
+
+    // Handle internal link click for VRChat section
+    window.switchTab = switchTab; // Make switchTab globally accessible for inline onclick
 
     // Initialize with the first tab
     switchTab('intro');
