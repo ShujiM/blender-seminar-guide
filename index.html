@@ -142,6 +142,8 @@
                                     <span class="font-semibold">基本メッシュの追加と準備:</span>
                                     <p class="ml-4 text-sm text-slate-600">Blenderを起動し、デフォルトのキューブを削除します。<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > メッシュ > キューブ を追加します。このキューブを体の中心とします。</p>
                                     <p class="ml-4 text-sm text-slate-600">オブジェクトを選択した状態で、プロパティエディタ（右側のNキーで表示されるサイドバー）のモディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」> 「ジェネレート」>「ミラー」を選択します。これにより、片側を編集するだけで左右対称のモデルが作成されます。「クリッピング」にチェックを入れると、中心で頂点が結合されるため、作業がしやすくなります。</p>
+                                    <!-- ユーザーが指定した画像挿入箇所 -->
+                                    <img src="img/blender_mirror.png" alt="Blenderのミラーモディファイアーの例" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block">
                                 </li>
                                 <li>
                                     <span class="font-semibold">大まかな形状の作成:</span>
@@ -742,10 +744,16 @@
                             <h3 class="font-semibold">YouTube</h3>
                             <p class="text-sm text-slate-500 mt-1">国内外のクリエイターによる豊富なチュートリアル動画があります。</p>
                         </a>
-                        <a href="https://cgbook.jp/blender-basics/" target="_blank" class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
-                            <h3 class="font-semibold">オンライン講座/書籍</h3>
-                            <p class="text-sm text-slate-500 mt-1">体系的に知識を学びたい方におすすめです。</p>
-                        </a>
+                        <!-- ユーザーの要望に合わせて変更されたセクション -->
+                        <div class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
+                            <h3 class="font-semibold">情報サイト</h3>
+                            <div class="text-sm text-slate-500 mt-1 space-y-2">
+                                <p>最新のCGニュースやチュートリアルが豊富です。</p>
+                                <a href="https://3dnchu.com/" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1 bg-blue-500 text-white rounded-md text-xs hover:bg-blue-600 transition-colors">3dnchu.comへ</a>
+                                <p>CGに関する多様な情報がまとめられています。</p>
+                                <a href="https://cgbox.jp/" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1 bg-blue-500 text-white rounded-md text-xs hover:bg-blue-600 transition-colors">cgbox.jpへ</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
