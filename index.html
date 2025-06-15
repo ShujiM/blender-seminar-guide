@@ -125,6 +125,7 @@
                                 <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Eキー</span>: 押し出し</li>
                                 <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+R</span>: ループカット</li>
                                 <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Iキー</span>: 面を差し込む</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+B</span>: ベベル</li>
                                 <li><span class="font-semibold">右クリック</span>: コンテキストメニュー (細分化など)</li>
                             </ul>
                         </div>
@@ -168,7 +169,7 @@
                                 <li>
                                     <span class="font-semibold">シーム（縫い目）のマーク:</span>
                                     <p class="ml-4 text-sm text-slate-600">3Dビューポートでオブジェクトを<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードにします。辺（Edge）を選択モードに切り替え、UV展開したい部分の「切り開く」辺を選択します。</p>
-                                    <p class="ml-4 text-sm text-slate-600">選択した辺の上で右クリックし、「**シームをマーク**」を選択します。これにより、その辺が赤く表示され、UV展開時の「切り目」となります。衣服の縫い目を想像すると分かりやすいでしょう。</p>
+                                    <p class="ml-4 text-sm text-slate-600">選択した辺の上で右クリックし、「<strong>シームをマーク</strong>」を選択します。これにより、その辺が赤く表示され、UV展開時の「切り目」となります。衣服の縫い目を想像すると分かりやすいでしょう。</p>
                                     <p class="ml-4 text-sm text-slate-600">全身のモデルの場合、腕や脚の内側、背中の中央、首の付け根などにシームを入れるのが一般的です。</p>
                                 </li>
                                 <li>
@@ -225,7 +226,7 @@
                                     <span class="font-semibold">ペアレントとウェイトペイント:</span>
                                     <p class="ml-4 text-sm text-slate-600">まずオブジェクトモードに戻ります（<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>）。</p>
                                     <p class="ml-4 text-sm text-slate-600">最初にモデル（メッシュ）を選択し、次に<span class="font-mono bg-slate-100 px-1 rounded">Shiftキー</span>を押しながら作成したアーマチュアを選択します。</p>
-                                    <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+P</span>キーを押し、メニューから「**自動ウェイトで**」を選択します。これにより、モデルの頂点が最も近いボーンに自動的に追従するように設定されます。</p>
+                                    <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+P</span>キーを押し、メニューから「<strong>自動ウェイトで</strong>」を選択します。これにより、モデルの頂点が最も近いボーンに自動的に追従するように設定されます。</p>
                                     <p class="ml-4 text-sm text-slate-600">必要に応じて、「ウェイトペイントモード」に切り替えて、各ボーンがモデルのどの部分に影響を与えるかを細かく調整できます。赤（強い影響）から青（影響なし）のグラデーションで表示されます。</p>
                                 </li>
                                 <li>
@@ -258,13 +259,13 @@
                                     <span class="font-semibold">主なブラシと設定:</span>
                                     <p class="ml-4 text-sm text-slate-600">左側のツールバーには様々なスカルプトブラシがあります。代表的なブラシは以下の通りです。</p>
                                     <ul class="list-disc list-inside text-sm text-slate-600 ml-8">
-                                        <li>**Draw (描画)**: 基本的な盛り上げや窪みを作るブラシ。</li>
-                                        <li>**Smooth (スムーズ)**: 表面を滑らかにするブラシ（Shiftキーを押しながら他のブラシを使用するとスムーズブラシになります）。</li>
-                                        <li>**Grab (グラブ)**: 表面を大きく掴んで移動させるブラシ。大まかな形状調整に。</li>
-                                        <li>**Crease (クリース)**: シャープな溝や隆起を作るブラシ。</li>
-                                        <li>**Inflate (膨張)**: 選択範囲を膨らませるブラシ。</li>
+                                        <li><strong>Draw (描画)</strong>: 基本的な盛り上げや窪みを作るブラシ。</li>
+                                        <li><strong>Smooth (スムーズ)</strong>: 表面を滑らかにするブラシ（Shiftキーを押しながら他のブラシを使用するとスムーズブラシになります）。</li>
+                                        <li><strong>Grab (グラブ)</strong>: 表面を大きく掴んで移動させるブラシ。大まかな形状調整に。</li>
+                                        <li><strong>Crease (クリース)</strong>: シャープな溝や隆起を作るブラシ。</li>
+                                        <li><strong>Inflate (膨張)</strong>: 選択範囲を膨らませるブラシ。</li>
                                     </ul>
-                                    <p class="ml-4 text-sm text-slate-600">ブラシの**半径 (Radius)** や**強さ (Strength)** は、3Dビューポート上部の設定、または<span class="font-mono bg-slate-100 px-1 rounded">Fキー</span>（半径）、<span class="font-mono bg-slate-100 px-1 rounded">Shift+Fキー</span>（強さ）で調整できます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ブラシの<strong>半径 (Radius)</strong> や<strong>強さ (Strength)</strong> は、3Dビューポート上部の設定、または<span class="font-mono bg-slate-100 px-1 rounded">Fキー</span>（半径）、<span class="font-mono bg-slate-100 px-1 rounded">Shift+Fキー</span>（強さ）で調整できます。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">対称機能の活用:</span>
@@ -292,13 +293,13 @@
                                 <li>
                                     <span class="font-semibold">新しいメッシュの追加とモディファイア設定:</span>
                                     <p class="ml-4 text-sm text-slate-600">シーンに新しい平面（Plane）を追加し、編集モードで全ての頂点を削除します。</p>
-                                    <p class="ml-4 text-sm text-slate-600">この新しい平面オブジェクトに、モディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」>「ジェネレート」>「**ミラー**」と「デフォーム」>「**シュリンクラップ**」を追加します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">この新しい平面オブジェクトに、モディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」>「ジェネレート」>「<strong>ミラー</strong>」と「デフォーム」>「<strong>シュリンクラップ</strong>」を追加します。</p>
                                     <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアのターゲットには、先ほど用意したハイポリモデルを設定します。「スナップモード」を「サーフェス」にし、「オフセット」でわずかにモデルから離す調整をすると良いでしょう。</p>
                                     <p class="ml-4 text-sm text-slate-600">ミラーモディファイアとシュリンクラップモディファイアの順番が重要です。通常は「ミラー」→「シュリンクラップ」の順にします。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">頂点スナップとメッシュの作成:</span>
-                                    <p class="ml-4 text-sm text-slate-600">3Dビューポート上部の「スナップ」オプション（磁石アイコン🧲）を有効にし、「スナップ対象」を「**面**」に、「対象」を「アクティブな要素」または「一番近い」に設定します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">3Dビューポート上部の「スナップ」オプション（磁石アイコン🧲）を有効にし、「スナップ対象」を「<strong>面</strong>」に、「対象」を「アクティブな要素」または「一番近い」に設定します。</p>
                                     <p class="ml-4 text-sm text-slate-600">編集モードで、頂点を作成・押し出し・結合することで、ハイポリモデルの表面に沿った新しいローポリゴンメッシュを構築していきます。スナップ機能により、作成する頂点がハイポリモデルの表面に吸着されます。</p>
                                     <p class="ml-4 text-sm text-slate-600">特に、関節部分や顔の表情に関わる部分（目の周り、口の周り）には、ポリゴンがループ状に流れるように意識してメッシュを作成します。これが「エッジループ」と呼ばれる重要な概念です。</p>
                                 </li>
@@ -311,27 +312,27 @@
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">モディファイアの追加:</span>
-                                    <p class="ml-4 text-sm text-slate-600">吸着させたいオブジェクト（通常は新しく作成したローポリメッシュ）を選択し、プロパティエディタ（レンチアイコン🔧）から「モディファイアーを追加」>「デフォーム」>「**シュリンクラップ**」を選択します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">吸着させたいオブジェクト（通常は新しく作成したローポリメッシュ）を選択し、プロパティエディタ（レンチアイコン🔧）から「モディファイアーを追加」>「デフォーム」>「<strong>シュリンクラップ</strong>」を選択します。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ターゲットの設定:</span>
-                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアのパネル内にある「**ターゲット**」オプションで、スポイトツール（またはドロップダウン）を使って、吸着させたい表面を持つオブジェクト（通常はハイポリモデル）を選択します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアのパネル内にある「<strong>ターゲット</strong>」オプションで、スポイトツール（またはドロップダウン）を使って、吸着させたい表面を持つオブジェクト（通常はハイポリモデル）を選択します。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">スナップモードとオフセット:</span>
-                                    <p class="ml-4 text-sm text-slate-600">**スナップモード (Wrap Method)**:
+                                    <p class="ml-4 text-sm text-slate-600"><strong>スナップモード (Wrap Method)</strong>:
                                         <ul class="list-disc list-inside text-sm text-slate-600 ml-8">
-                                            <li>**Nearest Surface Point (最も近いサーフェス点)**: 各頂点がターゲットメッシュの最も近い点に吸着します。</li>
-                                            <li>**Project (投影)**: 指定された軸に沿ってターゲットメッシュに投影します。</li>
-                                            <li>**Nearest Vertex (最も近い頂点)**: 各頂点がターゲットメッシュの最も近い頂点に吸着します。</li>
+                                            <li><strong>Nearest Surface Point (最も近いサーフェス点)</strong>: 各頂点がターゲットメッシュの最も近い点に吸着します。</li>
+                                            <li><strong>Project (投影)</strong>: 指定された軸に沿ってターゲットメッシュに投影します。</li>
+                                            <li><strong>Nearest Vertex (最も近い頂点)</strong>: 各頂点がターゲットメッシュの最も近い頂点に吸着します。</li>
                                             <li>リトポロジーでは「Nearest Surface Point」または「Project」がよく使われます。</li>
                                         </ul>
                                     </p>
-                                    <p class="ml-4 text-sm text-slate-600">**オフセット (Offset)**: 吸着する際に、ターゲットメッシュからどのくらい離すかを設定します。通常、ゼロに近いわずかな値を設定して、両方のメッシュが完全に重なるのを防ぎます。</p>
+                                    <p class="ml-4 text-sm text-slate-600"><strong>オフセット (Offset)</strong>: 吸着する際に、ターゲットメッシュからどのくらい離すかを設定します。通常、ゼロに近いわずかな値を設定して、両方のメッシュが完全に重なるのを防ぎます。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">モディファイアの適用順序:</span>
-                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアは、他のモディファイア（特にミラーモディファイア）と組み合わせて使用する場合、適用順序が非常に重要です。リトポロジーのワークフローでは、通常「ミラー」モディファイアの**後に**「シュリンクラップ」モディファイアを配置します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアは、他のモディファイア（特にミラーモディファイア）と組み合わせて使用する場合、適用順序が非常に重要です。リトポロジーのワークフローでは、通常「ミラー」モディファイアの<strong>後に</strong>「シュリンクラップ」モディファイアを配置します。</p>
                                 </li>
                             </ol>
                         </div>
@@ -347,20 +348,20 @@
                                 </li>
                                 <li>
                                     <span class="font-semibold">ベイク設定:</span>
-                                    <p class="ml-4 text-sm text-slate-600">レンダープロパティ（カメラのアイコン📷）の「**ベイク**」セクションを展開します。</p>
-                                    <p class="ml-4 text-sm text-slate-600">**ベイクタイプ (Bake Type)** を「**ノーマル**」に設定します。</p>
-                                    <p class="ml-4 text-sm text-slate-600">「**選択→アクティブ (Selected to Active)**」にチェックを入れます。これは、選択している複数のオブジェクトからアクティブなオブジェクトへベイクするという意味です。</p>
-                                    <p class="ml-4 text-sm text-slate-600">「**エクストルージョン (Extrusion)**」や「**マックスレイディスタンス (Max Ray Distance)**」の値を調整します。これにより、ハイポリモデルからローポリモデルへ情報を投影する距離を設定します。モデルの形状に合わせて適切な値を設定しないと、ベイクエラー（黒い部分や歪み）が発生します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">レンダープロパティ（カメラのアイコン📷）の「<strong>ベイク</strong>」セクションを展開します。</p>
+                                    <p class="ml-4 text-sm text-slate-600"><strong>ベイクタイプ (Bake Type)</strong> を「<strong>ノーマル</strong>」に設定します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">「<strong>選択→アクティブ (Selected to Active)</strong>」にチェックを入れます。これは、選択している複数のオブジェクトからアクティブなオブジェクトへベイクするという意味です。</p>
+                                    <p class="ml-4 text-sm text-slate-600">「<strong>エクストルージョン (Extrusion)</strong>」や「<strong>マックスレイディスタンス (Max Ray Distance)</strong>」の値を調整します。これにより、ハイポリモデルからローポリモデルへ情報を投影する距離を設定します。モデルの形状に合わせて適切な値を設定しないと、ベイクエラー（黒い部分や歪み）が発生します。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ベイクの実行:</span>
-                                    <p class="ml-4 text-sm text-slate-600">まず**ハイポリゴンモデルをShiftキーを押しながら選択**し、次に**ローポリゴンモデルを選択**します（ローポリモデルがアクティブな状態になります）。</p>
-                                    <p class="ml-4 text-sm text-slate-600">ベイクパネル下部の「**ベイク (Bake)**」ボタンをクリックします。</p>
+                                    <p class="ml-4 text-sm text-slate-600">まず<strong>ハイポリゴンモデルをShiftキーを押しながら選択</strong>し、次に<strong>ローポリゴンモデルを選択</strong>します（ローポリモデルがアクティブな状態になります）。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ベイクパネル下部の「<strong>ベイク (Bake)</strong>」ボタンをクリックします。</p>
                                     <p class="ml-4 text-sm text-slate-600">ベイクが完了すると、ローポリゴンモデルのマテリアルに設定した「画像テクスチャ」ノードに、ノーマルマップが焼き付けられます。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ノーマルマップの適用:</span>
-                                    <p class="ml-4 text-sm text-slate-600">ノードエディタに戻り、ノーマルマップを読み込んだ「画像テクスチャ」ノードと「プリンシプルBSDF」ノードの間に「**ノーマルマップ**」ノードを追加します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ノードエディタに戻り、ノーマルマップを読み込んだ「画像テクスチャ」ノードと「プリンシプルBSDF」ノードの間に「<strong>ノーマルマップ</strong>」ノードを追加します。</p>
                                     <p class="ml-4 text-sm text-slate-600">「画像テクスチャ」ノードの「カラー」出力を「ノーマルマップ」ノードの「カラー」入力に接続し、「ノーマルマップ」ノードの「ノーマル」出力を「プリンシプルBSDF」ノードの「ノーマル」入力に接続します。</p>
                                     <p class="ml-4 text-sm text-slate-600">これにより、ローポリゴンモデルにハイポリゴンモデルのディテールが再現されます。</p>
                                 </li>
@@ -587,31 +588,31 @@
                             <h3 class="font-semibold text-lg mb-2">6.1 Blender → FBXエクスポート</h3>
                             <p class="text-sm text-slate-500">Blenderで作成したモデルをUnityで読み込むために、互換性の高いFBX形式でエクスポートします。</p>
                             <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
-                                <li>**ファイル > エクスポート > FBX (.fbx)** を選択します。</li>
-                                <li>**Transform (トランスフォーム)**:
+                                <li><strong>ファイル > エクスポート > FBX (.fbx)</strong> を選択します。</li>
+                                <li><strong>Transform (トランスフォーム)</strong>:
                                     <ul class="list-circle list-inside ml-4">
-                                        <li>**Scale (スケール)**: 通常、Unityでは1単位が1メートルに相当するため、Blenderのシーンスケールに合わせて適切な値を設定します（例: `All: 0.01` でUnityの1単位がBlenderの1メートルになるように調整する場合が多いです）。</li>
-                                        <li>**Apply Transform (トランスフォームを適用)**: チェックを入れることで、Blender上で行ったオブジェクトのスケール、回転、位置の変更をモデルのジオメトリに焼き付けます。Unityでのインポート時の予期せぬ問題を防ぐために推奨されます。</li>
+                                        <li><strong>Scale (スケール)</strong>: 通常、Unityでは1単位が1メートルに相当するため、Blenderのシーンスケールに合わせて適切な値を設定します（例: `All: 0.01` でUnityの1単位がBlenderの1メートルになるように調整する場合が多いです）。</li>
+                                        <li><strong>Apply Transform (トランスフォームを適用)</strong>: チェックを入れることで、Blender上で行ったオブジェクトのスケール、回転、位置の変更をモデルのジオメトリに焼き付けます。Unityでのインポート時の予期せぬ問題を防ぐために推奨されます。</li>
                                     </ul>
                                 </li>
-                                <li>**Objects (オブジェクト)**:
+                                <li><strong>Objects (オブジェクト)</strong>:
                                     <ul class="list-circle list-inside ml-4">
-                                        <li>**Selected Objects (選択したオブジェクト)**: エクスポートしたいメッシュ、アーマチュア、ライト、カメラなどをBlender上で事前に選択し、このオプションにチェックを入れることで、不要な要素が含まれるのを防ぎます。</li>
-                                        <li>**Object Types (オブジェクトタイプ)**: エクスポートに含める要素（Mesh, Armature, Emptyなど）を選択します。通常、アバターの場合はメッシュとアーマチュアを含めます。</li>
+                                        <li><strong>Selected Objects (選択したオブジェクト)</strong>: エクスポートしたいメッシュ、アーマチュア、ライト、カメラなどをBlender上で事前に選択し、このオプションにチェックを入れることで、不要な要素が含まれるのを防ぎます。</li>
+                                        <li><strong>Object Types (オブジェクトタイプ)</strong>: エクスポートに含める要素（Mesh, Armature, Emptyなど）を選択します。通常、アバターの場合はメッシュとアーマチュアを含めます。</li>
                                     </ul>
                                 </li>
-                                <li>**Armature (アーマチュア)**:
+                                <li><strong>Armature (アーマチュア)</strong>:
                                     <ul class="list-circle list-inside ml-4">
-                                        <li>**Add Leaf Bones (末端ボーンを追加)**: チェックを外すことを推奨します。Unityが不要なボーンを追加するのを防ぎます。</li>
-                                        <li>**Primary Bone Axis / Secondary Bone Axis**: Unityでのボーンの向きがBlenderと異なる場合があるため、モデルが意図しない向きになる場合は調整が必要ですが、多くの場合デフォルトで問題ありません。</li>
-                                        <li>（アバターの場合）**Apply Modifiers (モディファイアーを適用)**: 特にSubdivision Surfaceモディファイアーを使っている場合、Unityに持ち込む前に適用しておくことを検討します。これにより、Unityでの表示がBlenderでのプレビューに近くなりますが、ポリゴン数が増える点に注意が必要です。</li>
+                                        <li><strong>Add Leaf Bones (末端ボーンを追加)</strong>: チェックを外すことを推奨します。Unityが不要なボーンを追加するのを防ぎます。</li>
+                                        <li><strong>Primary Bone Axis / Secondary Bone Axis</strong>: Unityでのボーンの向きがBlenderと異なる場合があるため、モデルが意図しない向きになる場合は調整が必要ですが、多くの場合デフォルトで問題ありません。</li>
+                                        <li>（アバターの場合）<strong>Apply Modifiers (モディファイアーを適用)</strong>: 特にSubdivision Surfaceモディファイアーを使っている場合、Unityに持ち込む前に適用しておくことを検討します。これにより、Unityでの表示がBlenderでのプレビューに近くなりますが、ポリゴン数が増える点に注意が必要です。</li>
                                     </ul>
                                 </li>
-                                <li>**Animation (アニメーション)**:
+                                <li><strong>Animation (アニメーション)</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>作成したアニメーション（例: 歩行アニメーション、表情アニメーション）を含める場合はチェックを入れます。</li>
-                                        <li>**NLA Strips (NLAストリップ)**: 非線形アニメーション（NLAエディタで管理している場合）を含めるかどうか。</li>
-                                        <li>**All Actions (全てのアクション)**: 複数のアニメーションアクションがある場合、全て含めるか選択できます。</li>
+                                        <li><strong>NLA Strips (NLAストリップ)</strong>: 非線形アニメーション（NLAエディタで管理している場合）を含めるかどうか。</li>
+                                        <li><strong>All Actions (全てのアクション)</strong>: 複数のアニメーションアクションがある場合、全て含めるか選択できます。</li>
                                     </ul>
                                 </li>
                                 <li>以上の設定後、「FBXをエクスポート」をクリックしてファイルを保存します。</li>
@@ -621,54 +622,54 @@
                             <h3 class="font-semibold text-lg mb-2">6.2 Unityでの設定</h3>
                             <p class="text-sm text-slate-500">BlenderからエクスポートしたモデルをVRChatで動作させるために、Unityでの詳細なセットアップを行います。</p>
                             <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
-                                <li>**Unity HubとUnity Editorのインストール**:
+                                <li><strong>Unity HubとUnity Editorのインストール</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>VRChatが公式で推奨しているバージョンのUnity HubとUnity Editorをインストールします。VRChatの公式ドキュメントで最新の推奨バージョンを確認してください。</li>
                                         <li>新しいUnityプロジェクトを作成します（3D Coreなど基本的なテンプレートでOK）。</li>
                                     </ul>
                                 </li>
-                                <li>**VRChat SDKの導入**:
+                                <li><strong>VRChat SDKの導入</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>VRChat公式サイトからVRChat SDK（アバター用、またはワールド用）をダウンロードします。</li>
                                         <li>Unityプロジェクトを開き、ダウンロードしたSDKの`.unitypackage`ファイルを`Assets`フォルダにドラッグ＆ドロップするか、Unityメニューバーの`Assets` > `Import Package` > `Custom Package...`から選択してインポートします。</li>
                                         <li>SDKをインポートすると、通常`VRChat SDK`メニューがUnityのメニューバーに表示されます。</li>
                                     </ul>
                                 </li>
-                                <li>**FBXモデルのインポート**:
+                                <li><strong>FBXモデルのインポート</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>BlenderからエクスポートしたFBXファイルをUnityの`Assets`フォルダにドラッグ＆ドロップします。</li>
                                     </ul>
                                 </li>
-                                <li>**モデルのRig設定**:
+                                <li><strong>モデルのRig設定</strong>:
                                     <ul class="list-circle list-inside ml-4">
-                                        <li>UnityのProjectビューでインポートしたFBXモデルを選択し、Inspectorビューの「**Rig**」タブをクリックします。</li>
-                                        <li>「**Animation Type (アニメーションタイプ)**」を「**Humanoid (ヒューマノイド)**」（人型アバターの場合）に設定し、「**Generate Generic Avatar (汎用アバターを生成)**」ではなく「**Create From This Model (このモデルから作成)**」を選択し、「Apply」をクリックします。</li>
-                                        <li>「**Configure Avatar (アバターを設定)**」をクリックし、ボーンが正しくマッピングされているか確認します。Unityが自動で認識しきれない場合は、手動で対応するボーンをドラッグ＆ドロップしてマッピングを修正します。特に指などの小さなボーンが正しく認識されていないことがあります。最後に「Done」をクリックして保存します。</li>
+                                        <li>UnityのProjectビューでインポートしたFBXモデルを選択し、Inspectorビューの「<strong>Rig</strong>」タブをクリックします。</li>
+                                        <li>「<strong>Animation Type (アニメーションタイプ)</strong>」を「<strong>Humanoid (ヒューマノイド)</strong>」（人型アバターの場合）に設定し、「<strong>Generate Generic Avatar (汎用アバターを生成)</strong>」ではなく「<strong>Create From This Model (このモデルから作成)</strong>」を選択し、「Apply」をクリックします。</li>
+                                        <li>「<strong>Configure Avatar (アバターを設定)</strong>」をクリックし、ボーンが正しくマッピングされているか確認します。Unityが自動で認識しきれない場合は、手動で対応するボーンをドラッグ＆ドロップしてマッピングを修正します。特に指などの小さなボーンが正しく認識されていないことがあります。最後に「Done」をクリックして保存します。</li>
                                     </ul>
                                 </li>
-                                <li>**Materials設定**:
+                                <li><strong>Materials設定</strong>:
                                     <ul class="list-circle list-inside ml-4">
-                                        <li>「Materials (マテリアル)」タブをクリックします。</li>
-                                        <li>「**Extract Materials (マテリアルを抽出)**」をクリックして、FBXファイル内に埋め込まれたマテリアルをUnityプロジェクト内に独立したマテリアルファイルとして抽出します。これにより、マテリアルの編集が容易になります。</li>
+                                        <li>「<strong>Materials (マテリアル)</strong>」タブをクリックします。</li>
+                                        <li>「<strong>Extract Materials (マテリアルを抽出)</strong>」をクリックして、FBXファイル内に埋め込まれたマテリアルをUnityプロジェクト内に独立したマテリアルファイルとして抽出します。これにより、マテリアルの編集が容易になります。</li>
                                         <li>抽出された各マテリアルを選択し、InspectorでシェーダーをVRChatに適したシェーダー（例: `VRChat/Standard`や、より軽量な`lilToon`、`Arktoon`などを別途インポートして使用）に設定し、テクスチャを割り当てます。テクスチャの`Filter Mode`は`Bilinear`、`Wrap Mode`は`Repeat`が一般的です。</li>
                                     </ul>
                                 </li>
-                                <li>**VRChat Componentの追加**:
+                                <li><strong>VRChat Componentの追加</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>HierarchyビューにFBXモデル（またはそのルートオブジェクト）をドラッグ＆ドロップしてシーンに配置します。</li>
                                         <li>シーン上のモデルを選択し、Inspectorビュー下部の「Add Component (コンポーネントを追加)」から以下を追加します。
                                             <ul class="list-disc list-inside ml-4">
-                                                <li>アバターの場合: `VRC Avatar Descriptor`</li>
-                                                <li>ワールドの場合: `VRC Scene Descriptor`</li>
+                                                <li>アバターの場合: <strong>VRC Avatar Descriptor</strong></li>
+                                                <li>ワールドの場合: <strong>VRC Scene Descriptor</strong></li>
                                             </ul>
                                         </li>
-                                        <li>`VRC Avatar Descriptor`では、**Viewpoint (視点)**（アバターの目の位置）、**Lip Sync (リップシンク)**（口の動き）、**Expressions (表情)**（カスタム表情メニュー）などを設定します。</li>
+                                        <li>`VRC Avatar Descriptor`では、<strong>Viewpoint (視点)</strong>（アバターの目の位置）、<strong>Lip Sync (リップシンク)</strong>（口の動き）、<strong>Expressions (表情)</strong>（カスタム表情メニュー）などを設定します。</li>
                                         <li>`VRC Scene Descriptor`では、ワールドのスポーンポイントや環境設定などを行います。</li>
                                     </ul>
                                 </li>
-                                <li>**PhysBoneの設定**:
+                                <li><strong>PhysBoneの設定</strong>:
                                     <ul class="list-circle list-inside ml-4">
-                                        <li>髪の毛や揺れるアクセサリーなど、物理演算で動かしたいボーンを持つオブジェクトには、そのボーンがアタッチされているGameObjectに`VRC Phys Bone`コンポーネントを追加します。</li>
+                                        <li>髪の毛や揺れるアクセサリーなど、物理演算で動かしたいボーンを持つオブジェクトには、そのボーンがアタッチされているGameObjectに<strong>VRC Phys Bone</strong>コンポーネントを追加します。</li>
                                         <li>`VRC Phys Bone`のプロパティで、揺れの強度や重力、コライダー設定などを調整し、自然な揺れを再現します。モデルの体にめり込むのを防ぐために、適切なコライダー（Capsule Colliderなど）を設定することも重要です。</li>
                                     </ul>
                                 </li>
@@ -678,21 +679,21 @@
                             <h3 class="font-semibold text-lg mb-2">6.3 VRChatへアップロード</h3>
                             <p class="text-sm text-slate-500">Unityでのセットアップが完了したら、いよいよVRChatにモデルを公開します。アップロード前に最終確認と最適化を行いましょう。</p>
                             <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
-                                <li>**VRChat SDKのコントロールパネルを開く**:
+                                <li><strong>VRChat SDKのコントロールパネルを開く</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>Unityメニューバーの`VRChat SDK` > `Show Control Panel`を選択します。</li>
                                     </ul>
                                 </li>
-                                <li>**Authentication (認証)**:
+                                <li><strong>Authentication (認証)</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>「Authentication」タブで、VRChatアカウントのユーザー名とパスワードを入力し、ログインします。</li>
                                     </ul>
                                 </li>
-                                <li>**Build & Upload (ビルドとアップロード)**:
+                                <li><strong>Build & Upload (ビルドとアップロード)</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>「Builder」タブに移動します。</li>
                                         <li>シーンに`VRC Avatar Descriptor`または`VRC Scene Descriptor`が正しく設定されていれば、ここにモデルのステータスが表示されます。</li>
-                                        <li>**Performance (パフォーマンス)**: 「Performance」タブで、モデルのパフォーマンスランク（Very Poor, Poor, Medium, Good, Excellent）を確認します。VRChatでは、多くのユーザーが快適に利用できるよう、モデルの最適化が非常に重要です。
+                                        <li><strong>Performance (パフォーマンス)</strong>: 「Performance」タブで、モデルのパフォーマンスランク（Very Poor, Poor, Medium, Good, Excellent）を確認します。VRChatでは、多くのユーザーが快適に利用できるよう、モデルの最適化が非常に重要です。
                                             <ul class="list-disc list-inside ml-4">
                                                 <li>**ポリゴン数**: 可能な限り削減します。</li>
                                                 <li>**マテリアル数**: ドローコールを減らすため、マテリアル数を統合することを検討します（アトラス化など）。</li>
@@ -703,17 +704,17 @@
                                         <li>ビルドプロセスが開始されます。これにはPCのスペックやモデルの複雑さによって数分から数十分かかる場合があります。</li>
                                     </ul>
                                 </li>
-                                <li>**情報の入力**:
+                                <li><strong>情報の入力</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>ビルドが完了すると、アップロードのための情報入力画面が表示されます。</li>
-                                        <li>**Name (名前)**: モデルの名前を入力します。</li>
-                                        <li>**Description (説明)**: モデルの説明文を入力します。</li>
-                                        <li>**Thumbnail (サムネイル)**: モデルのサムネイル画像をUnityのシーンビューで設定し、「Set Thumbnail in Scene」をクリックして設定します。これはVRChat内でモデルを選択する際に表示されます。</li>
-                                        <li>**Privacy (公開設定)**: 「Public (公開)」（誰でも利用可能）か「Private (非公開)」（自分だけ利用可能）を選択します。テスト中はPrivateにしておくのが一般的です。</li>
-                                        <li>**Content Warnings (コンテンツ警告)**: モデルの内容に応じて適切な警告を設定します。</li>
+                                        <li><strong>Name (名前)</strong>: モデルの名前を入力します。</li>
+                                        <li><strong>Description (説明)</strong>: モデルの説明文を入力します。</li>
+                                        <li><strong>Thumbnail (サムネイル)</strong>: モデルのサムネイル画像をUnityのシーンビューで設定し、「Set Thumbnail in Scene」をクリックして設定します。これはVRChat内でモデルを選択する際に表示されます。</li>
+                                        <li><strong>Privacy (公開設定)</strong>: 「Public (公開)」（誰でも利用可能）か「Private (非公開)」（自分だけ利用可能）を選択します。テスト中はPrivateにしておくのが一般的です。</li>
+                                        <li><strong>Content Warnings (コンテンツ警告)</strong>: モデルの内容に応じて適切な警告を設定します。</li>
                                     </ul>
                                 </li>
-                                <li>**アップロード完了**:
+                                <li><strong>アップロード完了</strong>:
                                     <ul class="list-circle list-inside ml-4">
                                         <li>全ての情報を入力し、「Upload」ボタンをクリックします。</li>
                                         <li>アップロードが完了すると、「Upload Complete!」のようなメッセージが表示され、VRChat内で自分のモデルとして選択・使用できるようになります。</li>
@@ -780,9 +781,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle internal link click for VRChat section
     window.switchTab = switchTab; // Make switchTab globally accessible for inline onclick
-
-    // Initialize with the first tab
-    switchTab('intro');
 
     // Interactive Table
     const tableRows = document.querySelectorAll('#format-table tbody tr');
