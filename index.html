@@ -90,6 +90,8 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- ユーザーが指定した画像挿入箇所 -->
+                    <img src="img/blender_viewport01.png" alt="Blenderビューポートの例" class="w-full h-auto rounded-lg mt-6 mb-6 object-cover mx-auto block">
                 </div>
             </section>
 
@@ -400,7 +402,7 @@
                             <div class="bg-slate-50 p-4 rounded-lg space-y-2">
                                 <h4 class="font-semibold">使用方法の概要</h4>
                                 <ul class="list-disc list-inside text-sm text-slate-600">
-                                    <li>Tripo AI StudioのWebサイトにアクセスし、利用を開始します。</li>
+                                    <li>Tripo AI Studioのウェブサイトにアクセスし、利用を開始します。</li>
                                     <li>生成したい3Dモデルのコンセプトをテキストプロンプトで記述します。</li>
                                     <li>AIがモデルを生成し始めます。高速な生成が特徴です。</li>
                                     <li>生成されたモデルのプレビューを確認し、必要であれば調整します。</li>
@@ -416,7 +418,7 @@
                             <div class="bg-slate-50 p-4 rounded-lg space-y-2">
                                 <h4 class="font-semibold">使用方法の概要</h4>
                                 <ul class="list-disc list-inside text-sm text-slate-600">
-                                    <li>Meshy.aiのWebサイトにアクセスし、サインアップ・ログインします。</li>
+                                    <li>Meshy.aiのウェブサイトにアクセスし、サインアップ・ログインします。</li>
                                     <li>「Text to 3D」でテキストプロンプトからモデルを生成したり、「Image to 3D」で画像からモデルを生成したりします。</li>
                                     <li>特に「Text to Texture」機能は、既存の3Dモデルにプロンプトでテクスチャを適用できるため、Blenderとの連携に非常に有効です。</li>
                                     <li>生成されたモデルやテクスチャはダウンロード可能です。</li>
@@ -480,7 +482,7 @@
                             <div class="relative mb-8 text-center step-connector">
                                 <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">4</div>
                                 <h3 class="mt-3 font-semibold">テクスチャの準備（Poly Havenから）</h3>
-                                <p class="text-sm text-slate-500">外部サイトから高品質なテクスチャをダウンロードします。今回は**Poly Haven**を利用します。</p>
+                                <p class="text-sm text-slate-500">外部サイトから高品質なテクスチャをダウンロードします。今回は<strong>Poly Haven</strong>を利用します。</p>
                                 <ul class="list-disc list-inside text-sm text-slate-600 mt-2">
                                     <li>Poly Havenのウェブサイト (<a href="https://polyhaven.com/textures" target="_blank" class="text-blue-600 hover:underline">https://polyhaven.com/textures</a>) にアクセスします。</li>
                                     <li>「brick (レンガ)」のようなキーワードで検索し、[Image of レンガテクスチャの例]気に入ったレンガのテクスチャセット（Albedo/Diffuse, Normal, Roughnessなどの画像が含まれる）をダウンロードします。</li>
@@ -696,9 +698,9 @@
                                         <li>シーンに`VRC Avatar Descriptor`または`VRC Scene Descriptor`が正しく設定されていれば、ここにモデルのステータスが表示されます。</li>
                                         <li><strong>Performance (パフォーマンス)</strong>: 「Performance」タブで、モデルのパフォーマンスランク（Very Poor, Poor, Medium, Good, Excellent）を確認します。VRChatでは、多くのユーザーが快適に利用できるよう、モデルの最適化が非常に重要です。
                                             <ul class="list-disc list-inside ml-4">
-                                                <li><strong>ポリゴン数</strong>: 可能な限り削減します。</li>
-                                                <li><strong>マテリアル数</strong>: ドローコールを減らすため、マテリアル数を統合することを検討します（アトラス化など）。</li>
-                                                <li><strong>物理演算の負荷</strong>: PhysBoneのコンポーネント数やボーン数もパフォーマンスに影響します。</li>
+                                                <li>**ポリゴン数**: 可能な限り削減します。</li>
+                                                <li>**マテリアル数**: ドローコールを減らすため、マテリアル数を統合することを検討します（アトラス化など）。</li>
+                                                <li>**物理演算の負荷**: PhysBoneのコンポーネント数やボーン数もパフォーマンスに影響します。</li>
                                             </ul>
                                         </li>
                                         <li>「Build & Publish (ビルドして公開)」または「Build & Upload (ビルドしてアップロード)」ボタンをクリックします。これは、アバターかワールドか、あるいは既にアップロード済みかどうかによって表示が異なります。</li>
