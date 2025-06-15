@@ -58,6 +58,7 @@
         <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 bg-white p-3 rounded-xl shadow-md sticky top-4 z-10">
             <button data-target="intro" class="nav-button active text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">はじめに</button>
             <button data-target="basics" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">基本操作</button>
+            <button data-target="advanced-modeling" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">高度なモデリング</button>
             <button data-target="generative-ai" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">3D生成AI</button>
             <button data-target="blender-mcp" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Blender MCP</button>
             <button data-target="web-usage" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Webでの活用</button>
@@ -238,14 +239,145 @@
                 </div>
             </section>
 
+            <section id="advanced-modeling" class="content-section">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">2. 高度なモデリング</h2>
+                    <p class="mb-6 text-slate-600">Blenderでの表現力をさらに高めるための、より進んだモデリング技術を学びます。スカルプティングによる有機的な形状作成から、リトポロジーによるメッシュの最適化、そしてテクスチャベイクによる効率的な見た目の表現までを解説します。</p>
+
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.1 スカルプティング</h3>
+                            <p class="mb-4 text-slate-600">スカルプティングは、まるで粘土をこねるように、ブラシツールを使って3Dモデルの形状を直感的に彫刻していくモデリング手法です。有機的なキャラクターや複雑な地形の作成に非常に有効です。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">スカルプトモードへの切り替え:</span>
+                                    <p class="ml-4 text-sm text-slate-600">Blenderの上部にあるワークスペースのタブから「Sculpting」を選択します。または、3Dビューポートの左上にあるモード選択ドロップダウンから「スカルプトモード」に切り替えます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">通常、スカルプティングを行うモデルはポリゴン数が多いため、事前に細分化サーフェスモディファイアーを適用するか、Dyntopo（ダイナミックトポロジー）を有効にしておくことを検討します。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">主なブラシと設定:</span>
+                                    <p class="ml-4 text-sm text-slate-600">左側のツールバーには様々なスカルプトブラシがあります。代表的なブラシは以下の通りです。</p>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 ml-8">
+                                        <li>**Draw (描画)**: 基本的な盛り上げや窪みを作るブラシ。</li>
+                                        <li>**Smooth (スムーズ)**: 表面を滑らかにするブラシ（Shiftキーを押しながら他のブラシを使用するとスムーズブラシになります）。</li>
+                                        <li>**Grab (グラブ)**: 表面を大きく掴んで移動させるブラシ。大まかな形状調整に。</li>
+                                        <li>**Crease (クリース)**: シャープな溝や隆起を作るブラシ。</li>
+                                        <li>**Inflate (膨張)**: 選択範囲を膨らませるブラシ。</li>
+                                    </ul>
+                                    <p class="ml-4 text-sm text-slate-600">ブラシの**半径 (Radius)** や**強さ (Strength)** は、3Dビューポート上部の設定、または<span class="font-mono bg-slate-100 px-1 rounded">Fキー</span>（半径）、<span class="font-mono bg-slate-100 px-1 rounded">Shift+Fキー</span>（強さ）で調整できます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">対称機能の活用:</span>
+                                    <p class="ml-4 text-sm text-slate-600">人間や動物など左右対称のモデルをスカルプティングする場合、3Dビューポートの右側にあるツールタブ（`N`キー）の「ツール」>「オプション」>「ミラー」セクションで、X軸（またはY, Z軸）にチェックを入れると、片側を編集するだけで反対側も同時に編集されます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">スカルプティングの進め方:</span>
+                                    <p class="ml-4 text-sm text-slate-600">まず大きなブラシで大まかな形状を作り、徐々にブラシサイズを小さくして細部を彫刻していきます。必要に応じてポリゴン数を増やしたり（DyntopoやMultiresolutionモディファイアー）、減らしたり（Simplifyブラシ）しながら作業を進めます。</p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.2 リトポロジー</h3>
+                            <p class="mb-4 text-slate-600">スカルプティングで作成したモデルは、非常に多くのポリゴンを持ち、トポロジー（メッシュの流れ）が複雑で乱れていることが多いです。リトポロジーは、この高ポリゴンモデル（ハイポリモデル）を基に、より最適化された低ポリゴンモデル（ローポリモデル）を再構築する作業です。ゲームやアニメーションでの利用には不可欠な工程です。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">ハイポリモデルの準備:</span>
+                                    <p class="ml-4 text-sm text-slate-600">スカルプティングが完了したハイポリゴンモデルをシーンに用意します。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">参照用としての設定:</span>
+                                    <p class="ml-4 text-sm text-slate-600">ハイポリモデルを選択し、オブジェクトプロパティ（オレンジ色の四角アイコン🟨）の「ビューポート表示」>「表示方法」を「境界」または「ワイヤーフレーム」に設定し、透明度を調整すると、新しいメッシュを作成しやすくなります。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">新しいメッシュの追加とモディファイア設定:</span>
+                                    <p class="ml-4 text-sm text-slate-600">シーンに新しい平面（Plane）を追加し、編集モードで全ての頂点を削除します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">この新しい平面オブジェクトに、モディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」>「ジェネレート」>「**ミラー**」と「デフォーム」>「**シュリンクラップ**」を追加します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアのターゲットには、先ほど用意したハイポリモデルを設定します。「スナップモード」を「サーフェス」にし、「オフセット」でわずかにモデルから離す調整をすると良いでしょう。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ミラーモディファイアとシュリンクラップモディファイアの順番が重要です。通常は「ミラー」→「シュリンクラップ」の順にします。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">頂点スナップとメッシュの作成:</span>
+                                    <p class="ml-4 text-sm text-slate-600">3Dビューポート上部の「スナップ」オプション（磁石アイコン🧲）を有効にし、「スナップ対象」を「**面**」に、「対象」を「アクティブな要素」または「一番近い」に設定します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">編集モードで、頂点を作成・押し出し・結合することで、ハイポリモデルの表面に沿った新しいローポリゴンメッシュを構築していきます。スナップ機能により、作成する頂点がハイポリモデルの表面に吸着されます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">特に、関節部分や顔の表情に関わる部分（目の周り、口の周り）には、ポリゴンがループ状に流れるように意識してメッシュを作成します。これが「エッジループ」と呼ばれる重要な概念です。</p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.3 モディファイア: シュリンクラップ</h3>
+                            <p class="mb-4 text-slate-600">シュリンクラップモディファイアは、オブジェクトを別のオブジェクトの表面に「吸着」させるための強力なツールです。リトポロジーにおいて、新しく作成するローポリゴンメッシュをハイポリゴンメッシュの形状に沿わせるために不可欠な役割を果たします。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">モディファイアの追加:</span>
+                                    <p class="ml-4 text-sm text-slate-600">吸着させたいオブジェクト（通常は新しく作成したローポリメッシュ）を選択し、プロパティエディタ（レンチアイコン🔧）から「モディファイアーを追加」>「デフォーム」>「**シュリンクラップ**」を選択します。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ターゲットの設定:</span>
+                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアのパネル内にある「**ターゲット**」オプションで、スポイトツール（またはドロップダウン）を使って、吸着させたい表面を持つオブジェクト（通常はハイポリモデル）を選択します。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">スナップモードとオフセット:</span>
+                                    <p class="ml-4 text-sm text-slate-600">**スナップモード (Wrap Method)**:
+                                        <ul class="list-disc list-inside text-sm text-slate-600 ml-8">
+                                            <li>**Nearest Surface Point (最も近いサーフェス点)**: 各頂点がターゲットメッシュの最も近い点に吸着します。</li>
+                                            <li>**Project (投影)**: 指定された軸に沿ってターゲットメッシュに投影します。</li>
+                                            <li>**Nearest Vertex (最も近い頂点)**: 各頂点がターゲットメッシュの最も近い頂点に吸着します。</li>
+                                            <li>リトポロジーでは「Nearest Surface Point」または「Project」がよく使われます。</li>
+                                        </ul>
+                                    </p>
+                                    <p class="ml-4 text-sm text-slate-600">**オフセット (Offset)**: 吸着する際に、ターゲットメッシュからどのくらい離すかを設定します。通常、ゼロに近いわずかな値を設定して、両方のメッシュが完全に重なるのを防ぎます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">モディファイアの適用順序:</span>
+                                    <p class="ml-4 text-sm text-slate-600">シュリンクラップモディファイアは、他のモディファイア（特にミラーモディファイア）と組み合わせて使用する場合、適用順序が非常に重要です。リトポロジーのワークフローでは、通常「ミラー」モディファイアの**後に**「シュリンクラップ」モディファイアを配置します。</p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.4 ノーマルマップのベイク</h3>
+                            <p class="mb-4 text-slate-600">ノーマルマップのベイクとは、ハイポリゴンモデルの持つ詳細な表面の凹凸情報を、画像データ（ノーマルマップ）として抽出し、それをローポリゴンモデルに適用する技術です。これにより、ローポリゴンモデルがまるでハイポリゴンモデルであるかのように、リアルな陰影やディテールを持つことができます。ゲームやリアルタイムレンダリングで非常に重要な最適化手法です。</p>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                                <li>
+                                    <span class="font-semibold">モデルとマテリアルの準備:</span>
+                                    <p class="ml-4 text-sm text-slate-600">ハイポリゴンモデルと、リトポロジーによって作成したローポリゴンモデルを同じ位置に配置します。ローポリゴンモデルは、ハイポリゴンモデルの形状を内包するように少しだけ大きくしておくと、ベイク時のエラーが少なくなります。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ローポリゴンモデルには、ノーマルマップを適用するための新しいマテリアルを設定し、ノードエディタで「画像テクスチャ」ノードを追加し、新規画像を作成します（この画像がベイク後のノーマルマップになります）。この画像ノードは、どの入力にも接続せず、アクティブな状態にしておきます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ベイク設定:</span>
+                                    <p class="ml-4 text-sm text-slate-600">レンダープロパティ（カメラのアイコン📷）の「**ベイク**」セクションを展開します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">**ベイクタイプ (Bake Type)** を「**ノーマル**」に設定します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">「**選択→アクティブ (Selected to Active)**」にチェックを入れます。これは、選択している複数のオブジェクトからアクティブなオブジェクトへベイクするという意味です。</p>
+                                    <p class="ml-4 text-sm text-slate-600">「**エクストルージョン (Extrusion)**」や「**マックスレイディスタンス (Max Ray Distance)**」の値を調整します。これにより、ハイポリモデルからローポリモデルへ情報を投影する距離を設定します。モデルの形状に合わせて適切な値を設定しないと、ベイクエラー（黒い部分や歪み）が発生します。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ベイクの実行:</span>
+                                    <p class="ml-4 text-sm text-slate-600">まず**ハイポリゴンモデルをShiftキーを押しながら選択**し、次に**ローポリゴンモデルを選択**します（ローポリモデルがアクティブな状態になります）。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ベイクパネル下部の「**ベイク (Bake)**」ボタンをクリックします。</p>
+                                    <p class="ml-4 text-sm text-slate-600">ベイクが完了すると、ローポリゴンモデルのマテリアルに設定した「画像テクスチャ」ノードに、ノーマルマップが焼き付けられます。</p>
+                                </li>
+                                <li>
+                                    <span class="font-semibold">ノーマルマップの適用:</span>
+                                    <p class="ml-4 text-sm text-slate-600">ノードエディタに戻り、ノーマルマップを読み込んだ「画像テクスチャ」ノードと「プリンシプルBSDF」ノードの間に「**ノーマルマップ**」ノードを追加します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">「画像テクスチャ」ノードの「カラー」出力を「ノーマルマップ」ノードの「カラー」入力に接続し、「ノーマルマップ」ノードの「ノーマル」出力を「プリンシプルBSDF」ノードの「ノーマル」入力に接続します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">これにより、ローポリゴンモデルにハイポリゴンモデルのディテールが再現されます。</p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section id="generative-ai" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">2. 代表的な3D生成AIの活用</h2>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">3. 代表的な3D生成AIの活用</h2>
                     <p class="mb-6 text-slate-600">テキストや2D画像から3Dモデルを生成するAIツールが急速に進化しています。これらのツールは、アイデア出しやベースモデルの作成を大幅に効率化し、Blenderでの詳細な作業へと繋げることができます。</p>
 
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">2.1 hyper3d.ai</h3>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">3.1 hyper3d.ai</h3>
                             <p class="mb-4 text-slate-600">テキストプロンプトや画像を入力することで、高品質な3Dモデルを生成するツールです。特に写実的なモデルの生成に強みを持つことがあります。</p>
                             <div class="bg-slate-50 p-4 rounded-lg space-y-2">
                                 <h4 class="font-semibold">使用方法の概要</h4>
@@ -261,7 +393,7 @@
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">2.2 studio.tripo3d.ai</h3>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">3.2 studio.tripo3d.ai</h3>
                             <p class="mb-4 text-slate-600">Tripo AIは、特に高速かつ高品質な3Dモデル生成に注力しているAIツールです。シンプルなインターフェースで直感的に利用できます。</p>
                             <div class="bg-slate-50 p-4 rounded-lg space-y-2">
                                 <h4 class="font-semibold">使用方法の概要</h4>
@@ -277,7 +409,7 @@
                         </div>
                         
                         <div class="md:col-span-2">
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">2.3 meshy.ai</h3>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">3.3 meshy.ai</h3>
                             <p class="mb-4 text-slate-600">テキストから3D、画像から3D、さらにはテキストからテクスチャを生成する機能など、多様な生成オプションを持つAIプラットフォームです。ゲームアセット制作にも活用されます。</p>
                             <div class="bg-slate-50 p-4 rounded-lg space-y-2">
                                 <h4 class="font-semibold">使用方法の概要</h4>
@@ -297,10 +429,10 @@
 
             <section id="blender-mcp" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">3. Blender MCPでAIと共に創る</h2>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">4. Blender MCPでAIと共に創る</h2>
                      <p class="mb-8 text-slate-600">Blender MCPは、自然言語（プロンプト）でBlenderを操作できるアドオンです。Blenderの操作知識が少なくても、AIとの対話を通じて直感的にモデリングを進めることができます。ここでは、特にClaude Desktopと連携してBlender MCPを起動し、シンプルなシーンを作成する手順を解説します。</p>
                     
-                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">3.1 Claude Desktopと連携したBlender MCPの起動</h3>
+                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">4.1 Claude Desktopと連携したBlender MCPの起動</h3>
                     <p class="mb-4 text-slate-600">Blender MCPは、BlenderとLLM（大規模言語モデル）を繋ぐインターフェースとして機能します。Claude Desktopのようなローカルで動作するLLM環境と連携することで、よりプライベートかつ柔軟な形でAIを活用できます。</p>
                     <ol class="list-decimal list-inside space-y-4 text-slate-700">
                         <li>
@@ -320,7 +452,7 @@
                         </li>
                     </ol>
 
-                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200 mt-10">3.2 MCPを利用したシンプルなシーン作成</h3>
+                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200 mt-10">4.2 MCPを利用したシンプルなシーン作成</h3>
                     <p class="mb-4 text-slate-600">ここでは、Blender MCPを使って基本的な部屋のようなシーンを作成し、テクスチャを適用するまでの一連の工程を体験します。</p>
                     <div class="flex flex-col items-center">
                         <div class="w-full max-w-md">
@@ -372,7 +504,7 @@
             
             <section id="web-usage" class="content-section">
                  <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">4. Webでの活用</h2>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">5. Webでの活用</h2>
                     <p class="mb-6 text-slate-600">作成した3DモデルをWebサイト上で魅力的に表示するための方法を学びます。様々なプラットフォームやライブラリを活用し、あなたの作品を世界に公開しましょう。</p>
                     
                     <div class="mb-8">
@@ -447,12 +579,12 @@
             
             <section id="vrchat-guide" class="content-section">
                  <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">5. VRChatモデル準備</h2>
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">6. VRChatモデル準備</h2>
                     <p class="mb-6 text-slate-600">Blenderで作成した3DモデルをソーシャルVRプラットフォーム「VRChat」で利用するための具体的な手順を学びます。Unityを経由したモデルのセットアップとアップロードのプロセスを詳細に解説します。</p>
                     
                     <div class="space-y-4">
                         <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">5.1 Blender → FBXエクスポート</h3>
+                            <h3 class="font-semibold text-lg mb-2">6.1 Blender → FBXエクスポート</h3>
                             <p class="text-sm text-slate-500">Blenderで作成したモデルをUnityで読み込むために、互換性の高いFBX形式でエクスポートします。</p>
                             <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
                                 <li>**ファイル > エクスポート > FBX (.fbx)** を選択します。</li>
@@ -486,7 +618,7 @@
                             </ul>
                         </div>
                         <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">5.2 Unityでの設定</h3>
+                            <h3 class="font-semibold text-lg mb-2">6.2 Unityでの設定</h3>
                             <p class="text-sm text-slate-500">BlenderからエクスポートしたモデルをVRChatで動作させるために、Unityでの詳細なセットアップを行います。</p>
                             <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
                                 <li>**Unity HubとUnity Editorのインストール**:
@@ -543,7 +675,7 @@
                             </ul>
                         </div>
                          <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">5.3 VRChatへアップロード</h3>
+                            <h3 class="font-semibold text-lg mb-2">6.3 VRChatへアップロード</h3>
                             <p class="text-sm text-slate-500">Unityでのセットアップが完了したら、いよいよVRChatにモデルを公開します。アップロード前に最終確認と最適化を行いましょう。</p>
                             <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
                                 <li>**VRChat SDKのコントロールパネルを開く**:
