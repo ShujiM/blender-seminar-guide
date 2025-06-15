@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インタラクティブ Blenderセミナーガイド</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Calm Harmony (Light Slate/Stone Neutrals with a Muted Blue Accent) -->
+    <!-- Application Structure Plan: A top-navigation driven SPA. Users select a main topic (Basics, AI, Usage), and the corresponding content section is displayed. This non-linear approach replaces the report's linear format, allowing users to jump to topics of interest. Content within sections is broken into cards and step-by-step visual guides to improve readability and engagement over plain text. -->
+    <!-- Visualization & Content Choices: Report Info: File Formats (FBX, GLB, OBJ) -> Goal: Compare -> Viz: Interactive HTML Table -> Interaction: Click a row to highlight its properties -> Justification: Makes comparing technical specifications easier and more engaging than a static list. | Report Info: Process steps (MCP usage, VRChat pipeline) -> Goal: Organize/Explain -> Viz: Vertical step-by-step diagram using HTML/CSS -> Interaction: Clear visual flow from top to bottom -> Justification: Visually represents a process better than a numbered list. NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #475569; /* slate-600 */
+            color: #f1f5f9; /* slate-100 */
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .step-connector::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            height: 2rem; 
+            border-left: 2px dashed #94a3b8; /* slate-400 */
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-700">インタラクティブ Blenderセミナーガイド</h1>
+            <p class="mt-2 text-slate-500">Blenderの世界へようこそ。基本操作からAI活用、Web/VRへの応用までを学びましょう。</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 bg-white p-3 rounded-xl shadow-md sticky top-4 z-10">
+            <button data-target="intro" class="nav-button active text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">はじめに</button>
+            <button data-target="basics" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">基本操作</button>
+            <button data-target="ai-creation" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">AIで創作 (MCP)</button>
+            <button data-target="usage" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">モデルの活用</button>
+            <button data-target="next-steps" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">次のステップ</button>
+        </nav>
+
+        <main>
+            <section id="intro" class="content-section active">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-4">本セミナーの目的と対象</h2>
+                    <p class="mb-6 text-slate-600">このガイドは、3Dモデリングソフトウェア「Blender」の基本操作から、最新のAI技術を活用したモデリング、さらには作成した3DモデルのWebやVRChatでの活用方法までをインタラクティブに学ぶことを目的としています。各セクションを自由に移動し、ご自身のペースで学習を進めてください。</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border-l-4 border-slate-500 pl-4">
+                            <h3 class="font-semibold text-lg">対象となる方</h3>
+                            <ul class="list-disc list-inside mt-2 text-slate-600 space-y-1">
+                                <li>Blenderをこれから始めたい方</li>
+                                <li>Blenderの基本操作を学びたい方</li>
+                                <li>LLMを活用したBlender操作に興味がある方</li>
+                                <li>作成した3DモデルをWebやVRChatで利用したい方</li>
+                            </ul>
+                        </div>
+                        <div class="border-l-4 border-slate-500 pl-4">
+                            <h3 class="font-semibold text-lg">必要なもの</h3>
+                            <ul class="list-disc list-inside mt-2 text-slate-600 space-y-1">
+                                <li>BlenderがインストールされたPC</li>
+                                <li>インターネット接続環境</li>
+                                <li>（推奨）マウス、ペンタブレットなど</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="basics" class="content-section">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">1. Blenderの基本操作</h2>
+                    <p class="mb-6 text-slate-600">全ての創作活動の基礎となる、Blenderの基本的な操作方法を学びます。まずはここからBlenderに慣れていきましょう。</p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2">1.1 UIとビュー操作</h3>
+                            <ul class="text-sm space-y-2 text-slate-600">
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Tキー</span>: ツールシェルフ表示/非表示</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Nキー</span>: プロパティエディタ表示/非表示</li>
+                                <li><span class="font-semibold">視点回転</span>: マウス中ボタンドラッグ</li>
+                                <li><span class="font-semibold">視点移動</span>: Shift + 中ボタンドラッグ</li>
+                                <li><span class="font-semibold">ズーム</span>: マウスホイール</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2">1.2 オブジェクト操作</h3>
+                             <ul class="text-sm space-y-2 text-slate-600">
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Shift+A</span>: オブジェクト追加</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Gキー</span>: 移動</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Rキー</span>: 回転</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Sキー</span>: 拡大縮小</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Tabキー</span>: モード切替 (オブジェクト/編集)</li>
+                            </ul>
+                        </div>
+                         <div class="bg-slate-50 p-4 rounded-lg md:col-span-2 lg:col-span-1">
+                            <h3 class="font-semibold text-lg mb-2">1.3 基本モデリングツール</h3>
+                             <ul class="text-sm space-y-2 text-slate-600">
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Eキー</span>: 押し出し</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+R</span>: ループカット</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Iキー</span>: 面を差し込む</li>
+                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+B</span>: ベベル</li>
+                                <li><span class="font-semibold">右クリック</span>: コンテキストメニュー (細分化など)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ai-creation" class="content-section">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">2. Blender MCPでAIと共に創る</h2>
+                     <p class="mb-8 text-slate-600">自然言語（プロンプト）でBlenderを操作できるアドオン「Blender MCP」の導入から実践までを解説します。AIとの対話を通じて、新しい創作体験をしてみましょう。</p>
+                    <div class="flex flex-col items-center">
+                        <div class="w-full max-w-md">
+                            <div class="relative mb-8 text-center step-connector">
+                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">1</div>
+                                <h3 class="mt-3 font-semibold">導入と設定</h3>
+                                <p class="text-sm text-slate-500">GitHubからアドオンをDLし、Blenderにインストール。APIキーを設定します。</p>
+                            </div>
+                            <div class="relative mb-8 text-center step-connector">
+                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">2</div>
+                                <h3 class="mt-3 font-semibold">プロンプト入力</h3>
+                                <p class="text-sm text-slate-500">サイドバー(Nキー)に表示されるパネルに、実行したい操作をテキストで入力します。</p>
+                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Create a house with a roof and windows."</div>
+                            </div>
+                             <div class="relative mb-8 text-center step-connector">
+                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">3</div>
+                                <h3 class="mt-3 font-semibold">コマンド実行</h3>
+                                <p class="text-sm text-slate-500">「Generate」や「Execute」ボタンでAIに指示を送信します。</p>
+                            </div>
+                            <div class="relative text-center">
+                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">4</div>
+                                <h3 class="mt-3 font-semibold">確認と改良</h3>
+                                <p class="text-sm text-slate-500">生成結果を確認し、追加の指示や手動での調整でモデルを完成させます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="usage" class="content-section">
+                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">3. 3Dモデルの活用</h2>
+                    <p class="mb-6 text-slate-600">作成した3DモデルをBlenderの外の世界で活用する方法を学びます。ファイル形式の選択から、WebやVRChatへの具体的な導入手順までを解説します。</p>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-3 text-slate-600">ファイル形式の比較</h3>
+                        <p class="text-sm text-slate-500 mb-4">クリックして各形式の特徴を確認できます。</p>
+                        <div class="overflow-x-auto">
+                            <table id="format-table" class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th class="border-b-2 p-3 bg-slate-100">形式</th>
+                                        <th class="border-b-2 p-3 bg-slate-100">主な用途</th>
+                                        <th class="border-b-2 p-3 bg-slate-100">アニメーション</th>
+                                        <th class="border-b-2 p-3 bg-slate-100">Web/VR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-slate-100 cursor-pointer">
+                                        <td class="border-b p-3 font-semibold">FBX (.fbx)</td>
+                                        <td class="border-b p-3">ゲームエンジン、DCCツール連携</td>
+                                        <td class="border-b p-3 text-green-600">✔ 対応</td>
+                                        <td class="border-b p-3">△一手間必要</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-100 cursor-pointer">
+                                        <td class="border-b p-3 font-semibold">GLB/glTF (.glb)</td>
+                                        <td class="border-b p-3">Web、AR/VR</td>
+                                        <td class="border-b p-3 text-green-600">✔ 対応</td>
+                                        <td class="border-b p-3 text-green-600">◎ 最適</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-100 cursor-pointer">
+                                        <td class="border-b p-3 font-semibold">OBJ (.obj)</td>
+                                        <td class="border-b p-3">静的モデル、3Dプリント</td>
+                                        <td class="border-b p-3 text-red-600">✖ 非対応</td>
+                                        <td class="border-b p-3">△ 非推奨</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">Webでの利用</h3>
+                            <div class="space-y-4">
+                                <div class="bg-slate-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold">Sketchfab</h4>
+                                    <p class="text-sm text-slate-500">モデルをアップロードするだけで簡単にWeb公開・共有できるプラットフォーム。</p>
+                                </div>
+                                 <div class="bg-slate-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold">Three.js / Babylon.js</h4>
+                                    <p class="text-sm text-slate-500">JavaScriptライブラリを使い、インタラクティブな3D体験をWebサイトに実装。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-600">VRChatへの道筋</h3>
+                             <div class="space-y-4">
+                                <div class="bg-slate-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold">1. Blender → FBXエクスポート</h4>
+                                    <p class="text-sm text-slate-500">モデル、ボーン、ウェイトを設定しFBX形式で出力。</p>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold">2. Unityでの設定</h4>
+                                    <p class="text-sm text-slate-500">VRChat SDKを導入し、マテリアルやリグ(Humanoid)を設定。</p>
+                                </div>
+                                 <div class="bg-slate-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold">3. VRChatへアップロード</h4>
+                                    <p class="text-sm text-slate-500">SDKからアップロード。パフォーマンス最適化が重要。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+            
+            <section id="next-steps" class="content-section">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-4">今後の学習について</h2>
+                    <p class="mb-6 text-slate-600">Blenderの学習は奥深く、終わりがありません。このセミナーをきっかけに、さらに知識を深めていくためのリソースを紹介します。</p>
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <a href="https://docs.blender.org/manual/ja/latest/index.html" target="_blank" class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
+                            <h3 class="font-semibold">公式マニュアル</h3>
+                            <p class="text-sm text-slate-500 mt-1">最も正確で網羅的な情報源です。</p>
+                        </a>
+                        <a href="https://www.youtube.com/results?search_query=blender+%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB" target="_blank" class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
+                            <h3 class="font-semibold">YouTube</h3>
+                            <p class="text-sm text-slate-500 mt-1">国内外のクリエイターによる豊富なチュートリアル動画があります。</p>
+                        </a>
+                        <a href="https://cgbook.jp/blender-basics/" target="_blank" class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
+                            <h3 class="font-semibold">オンライン講座/書籍</h3>
+                            <p class="text-sm text-slate-500 mt-1">体系的に知識を学びたい方におすすめです。</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    function switchTab(targetId) {
+        navButtons.forEach(button => {
+            if (button.dataset.target === targetId) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+
+        contentSections.forEach(section => {
+            if (section.id === targetId) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+    }
+    
+    document.querySelector('nav').addEventListener('click', (event) => {
+        if (event.target.matches('.nav-button')) {
+            const targetId = event.target.dataset.target;
+            switchTab(targetId);
+        }
+    });
+
+    // Initialize with the first tab
+    switchTab('intro');
+
+    // Interactive Table
+    const tableRows = document.querySelectorAll('#format-table tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+            tableRows.forEach(r => r.style.backgroundColor = '');
+            row.style.backgroundColor = '#e2e8f0'; // slate-200
+        });
+    });
+});
+</script>
+
+</body>
+</html>
