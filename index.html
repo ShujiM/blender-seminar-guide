@@ -3,172 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>インタラクティブ Blenderセミナーガイド</title>
+    <title>3Dモデリング基礎 </title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chosen Palette: Calm Harmony (Light Slate/Stone Neutrals with a Muted Blue Accent) -->
-    <!-- Application Structure Plan: A top-navigation driven SPA. Users select a main topic (Basics, AI, Usage), and the corresponding content section is displayed. This non-linear approach replaces the report's linear format, allowing users to jump to topics of interest. Content within sections is broken into cards and step-by-step visual guides to improve readability and engagement over plain text. -->
-    <!-- Visualization & Content Choices: Report Info: File Formats (FBX, GLB, OBJ) -> Goal: Compare -> Viz: Interactive HTML Table -> Interaction: Click a row to highlight its properties -> Justification: Makes comparing technical specifications easier and more engaging than a static list. | Report Info: Process steps (MCP usage, VRChat pipeline) -> Goal: Organize/Explain -> Viz: Vertical step-by-step diagram using HTML/CSS -> Interaction: Clear visual flow from top to bottom -> Justification: Visually represents a process better than a numbered list. NO SVG/Mermaid used. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-        }
-        .nav-button {
-            transition: all 0.3s ease;
-        }
-        .nav-button.active {
-            background-color: #475569; /* slate-600 */
-            color: #f1f5f9; /* slate-100 */
-            font-weight: 600;
-        }
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        .content-section.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .step-connector::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 100%;
-            height: 2rem; 
-            border-left: 2px dashed #94a3b8; /* slate-400 */
-        }
-        .step-connector.last::before {
-            display: none; /* 最後のステップではコネクタを非表示にする */
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body class="text-slate-800">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <div class="w-full px-4 md:px-8 py-4 md:py-8">
         
         <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-700">インタラクティブ Blenderセミナーガイド</h1>
-            <p class="mt-2 text-slate-500">Blenderの世界へようこそ。基本操作からAI活用、Web/VRへの応用までを学びましょう。</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-700">3Dモデリング基礎</h1>
+            <p class="mt-2 text-slate-500">
+                この資料は、Blenderの基本操作からキャラクターモデリング、生成AIの活用、Blender MCPによる部屋づくり、Webでの応用、VRChat用モデルの準備までを学びます。
+            </p>
         </header>
 
-        <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 bg-white p-3 rounded-xl shadow-md sticky top-4 z-10">
-            <button data-target="intro" class="nav-button active text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">はじめに</button>
-            <button data-target="basics" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">基本操作</button>
-            <button data-target="advanced-modeling" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">高度なモデリング</button>
-            <button data-target="generative-ai" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">3D生成AI</button>
-            <button data-target="blender-mcp" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Blender MCP</button>
-            <button data-target="web-usage" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">Webでの活用</button>
-            <button data-target="vrchat-guide" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">VRChatモデル準備</button>
-            <button data-target="next-steps" class="nav-button text-sm md:text-base px-4 py-2 rounded-lg hover:bg-slate-200">次のステップ</button>
+        <!-- プログレスバー -->
+        <div class="bg-white p-4 rounded-xl shadow-sm mb-4 sticky top-4 z-20 border border-slate-200 max-w-7xl mx-auto">
+            <div class="flex items-center justify-between text-sm text-slate-700 mb-2">
+                <span class="font-medium">学習進捗</span>
+                <span id="progress-text" class="font-semibold">0/6 完了</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-3">
+                <div id="progress-bar" class="bg-slate-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- メインナビゲーション -->
+        <nav class="bg-white rounded-xl shadow-lg mb-8 overflow-hidden border border-slate-200 max-w-7xl mx-auto">
+            <!-- ステップ式ナビゲーション -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+                <!-- Step 1: 準備 -->
+                <div class="nav-card group border-r border-slate-200 last:border-r-0" data-target="intro">
+                    <div class="p-6 md:p-8 bg-white hover:bg-slate-50 transition-all duration-300 cursor-pointer h-full border-l-4 border-l-slate-400">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-slate-600 rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg text-slate-800 group-hover:text-slate-900 transition-colors mb-1">事前準備</h3>
+                                <p class="text-base text-slate-600 leading-snug">概要と必要な環境</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2: モデリングの基礎 -->
+                <div class="nav-card group border-r border-slate-200 last:border-r-0" data-target="character-modeling">
+                    <div class="p-6 md:p-8 bg-white hover:bg-slate-50 transition-all duration-300 cursor-pointer h-full border-l-4 border-l-slate-400">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-slate-600 rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg text-slate-800 group-hover:text-slate-900 transition-colors mb-1">モデリングの基礎</h3>
+                                <p class="text-base text-slate-600 leading-snug">ショートカットキー・三頭身キャラクターを作る</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3: 応用技術 -->
+                <div class="nav-card group border-r border-slate-200 last:border-r-0" data-target="advanced-modeling">
+                    <div class="p-6 md:p-8 bg-white hover:bg-slate-50 transition-all duration-300 cursor-pointer h-full border-l-4 border-l-slate-400">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-slate-600 rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg text-slate-800 group-hover:text-slate-900 transition-colors mb-1">応用技術</h3>
+                                <p class="text-base text-slate-600 leading-snug">スカルプティング・リトポロジーなど</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 第2行 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-slate-200">
+                <!-- Step 4: Blender MCP -->
+                <div class="nav-card group border-r border-slate-200 last:border-r-0" data-target="blender-mcp">
+                    <div class="p-6 md:p-8 bg-white hover:bg-slate-50 transition-all duration-300 cursor-pointer h-full border-l-4 border-l-slate-400">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-slate-600 rounded-full flex items-center justify-center text-white font-bold text-lg">4</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg text-slate-800 group-hover:text-slate-900 transition-colors mb-1">MCP</h3>
+                                <p class="text-base text-slate-600 leading-snug">Blender MCPで部屋を作ってみよう</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 5: 3Dモデルのエクスポート -->
+                <div class="nav-card group border-r border-slate-200 last:border-r-0" data-target="export-guide">
+                    <div class="p-6 md:p-8 bg-white hover:bg-slate-50 transition-all duration-300 cursor-pointer h-full border-l-4 border-l-slate-400">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-slate-600 rounded-full flex items-center justify-center text-white font-bold text-lg">5</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg text-slate-800 group-hover:text-slate-900 transition-colors mb-1">エクスポート</h3>
+                                <p class="text-base text-slate-600 leading-snug">3Dモデルのエクスポート・Web・VRChat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 7: 参考情報・AI活用 -->
+                <div class="nav-card group border-r border-slate-200 last:border-r-0" data-target="next-steps">
+                    <div class="p-6 md:p-8 bg-white hover:bg-slate-50 transition-all duration-300 cursor-pointer h-full border-l-4 border-l-slate-400">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-slate-600 rounded-full flex items-center justify-center text-white font-bold text-lg">6</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg text-slate-800 group-hover:text-slate-900 transition-colors mb-1">参考情報</h3>
+                                <p class="text-base text-slate-600 leading-snug">学習リソースと生成AI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <main>
+            
             <section id="intro" class="content-section active">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-4">本セミナーの目的と対象</h2>
-                    <p class="mb-6 text-slate-600">このガイドは、3Dモデリングソフトウェア「Blender」の基本操作から、最新のAI技術を活用したモデリング、さらには作成した3DモデルのWebやVRChatでの活用方法までをインタラクティブに学ぶことを目的としています。各セクションを自由に移動し、ご自身のペースで学習を進めてください。</p>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="border-l-4 border-slate-500 pl-4">
-                            <h3 class="font-semibold text-lg">対象となる方</h3>
-                            <ul class="list-disc list-inside mt-2 text-slate-600 space-y-1">
-                                <li>Blenderをこれから始めたい方</li>
-                                <li>Blenderの基本操作を学びたい方</li>
-                                <li>LLMを活用したBlender操作に興味がある方</li>
-                                <li>作成した3DモデルをWebやVRChatで利用したい方</li>
-                            </ul>
+                    <!-- ヘッダー部分 -->
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-slate-700 mb-4">事前準備</h2>
+                    </div>
+
+                    <!-- ガイド概要（統合版） -->
+                    <div class="bg-white p-6 rounded-lg border border-slate-200 mb-8">
+                        <p class="text-slate-700">
+                           Blenderの基本操作から最新のAI技術を活用したモデリング、さらに制作した3DモデルをWebやVRChatで活用する方法までを紹介します。
+                           Blender初心者や基本操作を身につけたい方、生成AIやLLMを活用した効率的なモデリング、Web・VRChat向け3Dコンテンツ制作に興味がある方に向けた内容です。
+                        </p>
+                        <ul class="list-disc pl-6 text-slate-700 mt-4">
+                            <li>必要なソフトウェア：Blender、Claude Desktop（こちらは任意のMCPの実行環境でも問題ありません）</li>
+                            <li>推奨デバイス：マウスまたはペンタブレット</li>
+                            <li>VRChat：こちらも任意で、できる方だけで問題ありません</li>
+                        </ul>
+                    </div>
+
+                    <!-- 必要なソフトウェア -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-4">ソフトウェア</h3>
+
+                        <!-- Blender - メインソフトウェア -->
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 mb-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Blender</h4>
+                                    <p class="text-slate-600 text-sm">必須 - メインソフトウェア（推奨：4.4.3以上）</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <a href="https://www.blender.org/download/" target="_blank" 
+                                       class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        ダウンロード
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="border-l-4 border-slate-500 pl-4">
-                            <h3 class="font-semibold text-lg">必要なもの</h3>
-                            <ul class="list-disc list-inside mt-2 text-slate-600 space-y-1">
-                                <li>BlenderがインストールされたPC</li>
-                                <li>インターネット接続環境</li>
-                                <li>（推奨）マウス、ペンタブレットなど</li>
-                            </ul>
+
+                        <!-- その他のソフトウェア -->
+                        <div class="space-y-3">
+                            <!-- MCP関連 -->
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">Claude Desktop</h4>
+                                        <p class="text-slate-600 text-sm">MCPの使い方は<a href="#blender-mcp" class="text-blue-600 hover:text-blue-700 transition-colors font-medium">Blender MCPの章</a>で詳しく解説しています。</p>
+                                    </div>
+
+                                             <a href="https://claude.ai/download/" target="_blank" 
+                                       class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        ダウンロード
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- ユーザーが指定した画像挿入箇所 -->
-                    <img src="img/blender_viewport01.png" alt="Blenderビューポートの例" class="w-full h-auto rounded-lg mt-6 mb-6 object-cover mx-auto block">
+
+
+                    <!-- Blender画面 -->
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h3 class="text-lg font-bold text-slate-800 mb-4">Blender起動確認</h3>
+                        <div class="text-center">
+                            <img src="img/01blender_viewport01.png" alt="Blenderビューポートの例" class="w-full max-w-4xl h-auto rounded-lg mx-auto object-cover border border-slate-200">
+                            <div class="mt-4 p-3 bg-white rounded border border-slate-200 inline-block">
+                                <p class="text-sm text-slate-600">✅ このような画面が表示されていれば準備完了です</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
+        </main>
+    </div>
 
-            <section id="basics" class="content-section">
+
+            <section id="character-modeling" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">1. Blenderの基本操作</h2>
-                    <p class="mb-6 text-slate-600">全ての創作活動の基礎となる、Blenderの基本的な操作方法を学びます。まずはここからBlenderに慣れていきましょう。</p>
-
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">1.1 UIとビュー操作</h3>
-                            <ul class="text-sm space-y-2 text-slate-600">
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Tキー</span>: ツールシェルフ表示/非表示</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Nキー</span>: プロパティエディタ表示/非表示</li>
-                                <li><span class="font-semibold">視点回転</span>: マウス中ボタンドラッグ</li>
-                                <li><span class="font-semibold">視点移動</span>: Shift + 中ボタンドラッグ</li>
-                                <li><span class="font-semibold">ズーム</span>: マウスホイール</li>
-                            </ul>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-700 mb-4">モデリングの基礎</h2>
+                    <p class="mb-8 text-base md:text-lg text-slate-600 leading-relaxed">創作活動の基礎となるBlenderの基本操作から、三頭身キャラクターの作成、UV展開、テクスチャ適用、リグの設定まで、一連の制作工程を学びます。</p>
+                    
+                    <!-- ショートカットキー -->
+                    <div class="mb-10">
+                        <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">Blenderでよく使うショートカットキー</h3>
+                        <p class="mb-4 text-slate-600">モデリングを効率的に行うために、基本的なショートカットキーをマスターしましょう。</p>
+                        
+                        <div class="overflow-x-auto mb-8">
+                          <table class="shortcut-table min-w-full border border-slate-200 rounded-lg bg-slate-50">
+                            <thead>
+                              <tr class="bg-slate-100 text-slate-700 text-base">
+                                <th class="py-3 px-4 border-b border-slate-200 text-left">カテゴリ</th>
+                                <th class="py-3 px-4 border-b border-slate-200 text-left">ショートカット/操作</th>
+                                <th class="py-3 px-4 border-b border-slate-200 text-left">説明</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-slate-700 text-sm md:text-base">
+                              <tr>
+                                <td class="py-2 px-4 font-semibold align-top" rowspan="5">UIとビュー操作</td>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Tキー</span></td>
+                                <td class="py-2 px-4">ツールシェルフ表示/非表示</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Nキー</span></td>
+                                <td class="py-2 px-4">プロパティエディタ表示/非表示</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4 font-semibold">視点回転</td>
+                                <td class="py-2 px-4">マウス中ボタンドラッグ</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4 font-semibold">視点移動</td>
+                                <td class="py-2 px-4">Shift + 中ボタンドラッグ</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4 font-semibold">ズーム</td>
+                                <td class="py-2 px-4">マウスホイール</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4 font-semibold align-top" rowspan="5">オブジェクト操作</td>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Shift+A</span></td>
+                                <td class="py-2 px-4">オブジェクト追加</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Gキー</span></td>
+                                <td class="py-2 px-4">移動</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Rキー</span></td>
+                                <td class="py-2 px-4">回転</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Sキー</span></td>
+                                <td class="py-2 px-4">拡大縮小</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Tabキー</span></td>
+                                <td class="py-2 px-4">モード切替 (オブジェクト/編集)</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4 font-semibold align-top" rowspan="5">基本モデリングツール</td>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Eキー</span></td>
+                                <td class="py-2 px-4">押し出し</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+R</span></td>
+                                <td class="py-2 px-4">ループカット</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Iキー</span></td>
+                                <td class="py-2 px-4">面を差し込む</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4"><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+B</span></td>
+                                <td class="py-2 px-4">ベベル</td>
+                              </tr>
+                              <tr>
+                                <td class="py-2 px-4 font-semibold">右クリック</td>
+                                <td class="py-2 px-4">コンテキストメニュー (細分化など)</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">1.2 オブジェクト操作</h3>
-                             <ul class="text-sm space-y-2 text-slate-600">
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Shift+A</span>: オブジェクト追加</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Gキー</span>: 移動</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Rキー</span>: 回転</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Sキー</span>: 拡大縮小</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Tabキー</span>: モード切替 (オブジェクト/編集)</li>
-                            </ul>
-                        </div>
-                         <div class="bg-slate-50 p-4 rounded-lg md:col-span-2 lg:col-span-1">
-                            <h3 class="font-semibold text-lg mb-2">1.3 基本モデリングツール</h3>
-                             <ul class="text-sm space-y-2 text-slate-600">
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Eキー</span>: 押し出し</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+R</span>: ループカット</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Iキー</span>: 面を差し込む</li>
-                                <li><span class="font-mono bg-slate-200 px-2 py-1 rounded">Ctrl+B</span>: ベベル</li>
-                                <li><span class="font-semibold">右クリック</span>: コンテキストメニュー (細分化など)</li>
-                            </ul>
+                        <div class="mt-6">
+                            <img src="https://placehold.jp/600x300/">
                         </div>
                     </div>
-
+                    
                     <div class="space-y-10">
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.4 3等身の人間をモデリングする</h3>
-                            <p class="mb-4 text-slate-600">キャラクターモデリングの第一歩として、バランスの取れた3等身（頭一つ分で身体の長さの基準とするプロポーション）の人間モデルを作成する基本的な工程を学びます。左右対称のモデリングに慣れることが重要です。</p>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">三頭身のキャラクターをモデリングする</h3>
+                            <p class="mb-4 text-slate-600">キャラクターモデリングの第一歩として、バランスの取れた三頭身（頭一つ分で身体の長さの基準とするプロポーション）の人間モデルを作成する基本的な工程を学びます。左右対称のモデリングに慣れることが大切です。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">基本メッシュの追加と準備:</span>
                                     <p class="ml-4 text-sm text-slate-600">Blenderを起動し、デフォルトのキューブを削除します。<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > メッシュ > キューブ を追加します。このキューブを体の中心とします。</p>
-                                    <p class="ml-4 text-sm text-slate-600">オブジェクトを選択した状態で、プロパティエディタ（右側のNキーで表示されるサイドバー）のモディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」> 「ジェネレート」>「ミラー」を選択します。これにより、片側を編集するだけで左右対称のモデルが作成されます。「クリッピング」にチェックを入れると、中心で頂点が結合されるため、作業がしやすくなります。</p>
+                                    <p class="ml-4 text-sm text-slate-600">オブジェクトを選択した状態で、プロパティエディタ（右側のNキーで表示されるサイドバー）のモディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」> 「ジェネレート」>「ミラー」を選択します。これで、片側を編集するだけで左右対称のモデルが作成されます。「クリッピング」にチェックを入れると、中心で頂点が結合されるため、作業がしやすくなります。</p>
                                     <!-- ユーザーが指定した画像挿入箇所 -->
-                                    <img src="img/blender_mirror.png" alt="Blenderのミラーモディファイアーの例" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block">
+                                    <img src="img/02cube_mirror.png" alt="Blenderのミラーモディファイアーの例" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block">
                                 </li>
                                 <li>
-                                    <span class="font-semibold">大まかな形状の作成:</span>
+                                    <span class="font-semibold">おおまかな形を作る:</span>
                                     <p class="ml-4 text-sm text-slate-600">オブジェクトモードから<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードに切り替えます。最初に体のベースとなるキューブを拡大・縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)して、胴体部分のサイズを決めます。</p>
-                                    <p class="ml-4 text-sm text-slate-600">体の各部位（頭、胴体、腕、足）を意識しながら、面（Face）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出して新たな面を作成します。押し出し後に移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)や拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)を繰り返して、徐々に人型に近づけていきます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">体の各部位（頭、胴体、腕、足）を意識しながら、面（Face）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出して新たな面を作成します。押し出し後に移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)や拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)を繰り返し、徐々に人型に近づけていきます。</p>
                                     <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+R</span>でループカットを入れ、頂点や辺を移動・調整することで、関節部分や曲線を作っていきます。例えば、腕の付け根やひざ、ひじのあたりにループカットを追加すると、後からの整形がしやすくなります。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="https://placehold.jp/500x300/">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">プロポーションの調整:</span>
-                                    <p class="ml-4 text-sm text-slate-600">視点を頻繁に変えながら、全体のプロポーションが3等身になるように意識して調整します。頭の大きさを基準に、胴体が約1つ半、足が約1つ半の長さになるよう心がけましょう。編集モードで頂点（Vertex）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>で移動させることで、細かく形状を調整できます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">視点を頻繁に変えながら、全体のプロポーションが三頭身になるよう調整します。頭の大きさを基準に、胴体が約1つ半、足が約1つ半の長さになるよう心がけましょう。編集モードで頂点（Vertex）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>で移動させることで、細かく形状を調整できます。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="https://placehold.jp/500x300/">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ディテールの追加（オプション）:</span>
-                                    <p class="ml-4 text-sm text-slate-600">必要に応じて、肩、腰、手、足の指などのディテールを追加していきます。細分化サーフェスモディファイアー（サブディビジョンサーフェス）を追加すると、モデルを滑らかに表示できます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">必要なら、肩、腰、手、足の指などのディテールを追加します。細分化サーフェスモディファイアー（サブディビジョンサーフェス）を追加すると、モデルを滑らかに表示できます。</p>
                                 </li>
                             </ol>
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.5 UV展開をする</h3>
-                            <p class="mb-4 text-slate-600">UV展開とは、3Dモデルの表面を2D平面に「切り開く」作業です。これにより、テクスチャ（画像）をモデルに正確に貼り付けることができるようになります。服の型紙を作るイメージです。</p>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">UV展開をする</h3>
+                            <p class="mb-4 text-slate-600">UV展開とは、3Dモデルの表面を2D平面に「切り開く」作業です。これで、テクスチャ（画像）をモデルに正確に貼り付けられるようになります。服の型紙を作るイメージです。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">UV編集ワークスペースへの切り替え:</span>
                                     <p class="ml-4 text-sm text-slate-600">Blenderの上部にあるワークスペースのタブから「UV Editing」を選択します。画面が2つに分割され、左側にUVエディタ、右側に3Dビューポートが表示されます。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="https://placehold.jp/600x350/">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">シーム（縫い目）のマーク:</span>
@@ -179,7 +353,10 @@
                                 <li>
                                     <span class="font-semibold">UV展開の実行:</span>
                                     <p class="ml-4 text-sm text-slate-600">全ての面を選択（<span class="font-mono bg-slate-100 px-1 rounded">Aキー</span>）した状態で、3Dビューポートのメニューから「UV」>「**展開**」を選択します。または、<span class="font-mono bg-slate-100 px-1 rounded">Uキー</span>を押して「展開」を選択します。</p>
-                                    <p class="ml-4 text-sm text-slate-600">これにより、UVエディタ（左側の画面）に、切り開かれたモデルの2D形状が表示されます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">これで、UVエディタ（左側の画面）に、切り開かれたモデルの2D形状が表示されます。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="https://placehold.jp/500x300/">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">UVアイランドの整理:</span>
@@ -190,7 +367,7 @@
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.6 テクスチャの作成と適用</h3>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">テクスチャの作成と適用</h3>
                             <p class="mb-4 text-slate-600">テクスチャは、モデルの表面に色や質感を加えるための画像データです。UV展開したモデルにテクスチャを貼り付け、よりリアルな表現を目指します。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
@@ -206,31 +383,37 @@
                                 <li>
                                     <span class="font-semibold">テクスチャの読み込みと適用:</span>
                                     <p class="ml-4 text-sm text-slate-600">「画像テクスチャ」ノードの「開く」ボタンをクリックし、準備したテクスチャ画像ファイルを読み込みます。</p>
-                                    <p class="ml-4 text-sm text-slate-600">これで、UV展開されたモデルにテクスチャが適用され、ビューポート上で確認できるようになります。必要に応じて、ノーマルマップやラフネスマップなどの他のテクスチャも同様に設定することで、より複雑な質感を表現できます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">これで、UV展開されたモデルにテクスチャが適用され、ビューポート上で確認できます。必要に応じて、ノーマルマップやラフネスマップなどの他のテクスチャも同様に設定すれば、より複雑な質感を表現できます。</p>
                                 </li>
                             </ol>
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">1.7 リグ（Armature）の設定</h3>
-                            <p class="mb-4 text-slate-600">リグ（Armature/骨格）は、作成したモデルをアニメーションさせるための「骨」です。これにより、キャラクターを柔軟に動かすことができるようになります。</p>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">リグ（Armature）の設定</h3>
+                            <p class="mb-4 text-slate-600">リグ（Armature/骨格）は、作成したモデルをアニメーションさせるための「骨」です。これで、キャラクターを柔軟に動かせるようになります。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">アーマチュアの追加:</span>
                                     <p class="ml-4 text-sm text-slate-600">オブジェクトモードで、<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > アーマチュア > シングルボーン を選択し、ボーンを追加します。</p>
                                     <p class="ml-4 text-sm text-slate-600">追加したボーンを選択し、プロパティエディタ（右側の緑の人型アイコン👤）の「ビューポート表示」セクションで「最前面」にチェックを入れると、モデルの中に埋もれずにボーンが見えるようになります。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="https://placehold.jp/500x300/">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ボーンの配置:</span>
                                     <p class="ml-4 text-sm text-slate-600">アーマチュアを<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードに切り替え、ボーンの端点を選択して移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)、回転(<span class="font-mono bg-slate-100 px-1 rounded">Rキー</span>)、拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)を行い、人体の骨格に沿って配置していきます。</p>
                                     <p class="ml-4 text-sm text-slate-600">ボーンの端点から<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出すと、新しいボーンを作成できます。首、背骨、腕、脚、指など、必要なボーンを階層構造（親子関係）で作成していきます。</p>
                                     <p class="ml-4 text-sm text-slate-600">ミラーモディファイアーと同様に、アーマチュアのプロパティ（緑の人型アイコン👤）の「X軸ミラー」にチェックを入れると、左右対称でボーンを配置できます。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="https://placehold.jp/500x350/">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ペアレントとウェイトペイント:</span>
                                     <p class="ml-4 text-sm text-slate-600">まずオブジェクトモードに戻ります（<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>）。</p>
                                     <p class="ml-4 text-sm text-slate-600">最初にモデル（メッシュ）を選択し、次に<span class="font-mono bg-slate-100 px-1 rounded">Shiftキー</span>を押しながら作成したアーマチュアを選択します。</p>
-                                    <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+P</span>キーを押し、メニューから「<strong>自動ウェイトで</strong>」を選択します。これにより、モデルの頂点が最も近いボーンに自動的に追従するように設定されます。</p>
+                                    <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+P</span>キーを押し、メニューから「<strong>自動ウェイトで</strong>」を選択します。これで、モデルの頂点が最も近いボーンに自動的に追従するよう設定されます。</p>
                                     <p class="ml-4 text-sm text-slate-600">必要に応じて、「ウェイトペイントモード」に切り替えて、各ボーンがモデルのどの部分に影響を与えるかを細かく調整できます。赤（強い影響）から青（影響なし）のグラデーションで表示されます。</p>
                                 </li>
                                 <li>
@@ -246,19 +429,18 @@
 
             <section id="advanced-modeling" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">2. 高度なモデリング</h2>
-                    <p class="mb-6 text-slate-600">Blenderでの表現力をさらに高めるための、より進んだモデリング技術を学びます。スカルプティングによる有機的な形状作成から、リトポロジーによるメッシュの最適化、そしてテクスチャベイクによる効率的な見た目の表現までを解説します。</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-700 mb-4">応用技術</h2>
+                    <p class="mb-8 text-base md:text-lg text-slate-600 leading-relaxed">Blenderでの表現力をさらに高めるため、より進んだモデリング技術を学びます。スカルプティングによる有機的な形状作成から、リトポロジーによるメッシュの最適化、そしてテクスチャベイクによる効率的な見た目の表現まで解説します。</p>
 
                     <div class="space-y-10">
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.1 スカルプティング</h3>
-                            <img src="https://placehold.co/600x300/e0e7ff/3f51b5?text=Sculpting+Example" alt="スカルプティングの例" class="w-full h-auto rounded-lg mb-4 object-cover">
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">スカルプティング</h3>
                             <p class="mb-4 text-slate-600">スカルプティングは、まるで粘土をこねるように、ブラシツールを使って3Dモデルの形状を直感的に彫刻していくモデリング手法です。有機的なキャラクターや複雑な地形の作成に非常に有効です。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">スカルプトモードへの切り替え:</span>
                                     <p class="ml-4 text-sm text-slate-600">Blenderの上部にあるワークスペースのタブから「Sculpting」を選択します。または、3Dビューポートの左上にあるモード選択ドロップダウンから「スカルプトモード」に切り替えます。</p>
-                                    <p class="ml-4 text-sm text-slate-600">通常、スカルプティングを行うモデルはポリゴン数が多いため、事前に細分化サーフェスモディファイアーを適用するか、Dyntopo（ダイナミックトポロジー）を有効にしておくことを検討します。</p>
+                                    <p class="ml-4 text-sm text-slate-600">通常、スカルプティングを行うモデルはポリゴン数が多いため、事前に細分化サーフェスモディファイアーを適用するか、Dyntopo（ダイナミックトポロジー）を有効にしておくことを推奨します。</p>
                                 </li>
                                 <li>
                                     <span class="font-semibold">主なブラシと設定:</span>
@@ -284,7 +466,7 @@
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.2 リトポロジー</h3>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">リトポロジー</h3>
                             <p class="mb-4 text-slate-600">スカルプティングで作成したモデルは、非常に多くのポリゴンを持ち、トポロジー（メッシュの流れ）が複雑で乱れていることが多いです。リトポロジーは、この高ポリゴンモデル（ハイポリモデル）を基に、より最適化された低ポリゴンモデル（ローポリモデル）を再構築する作業です。ゲームやアニメーションでの利用には不可欠な工程です。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
@@ -312,8 +494,8 @@
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.3 モディファイア: シュリンクラップ</h3>
-                            <p class="mb-4 text-slate-600">シュリンクラップモディファイアは、オブジェクトを別のオブジェクトの表面に「吸着」させるための強力なツールです。リトポロジーにおいて、新しく作成するローポリゴンメッシュをハイポリゴンメッシュの形状に沿わせるために不可欠な役割を果たします。</p>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">モディファイア: シュリンクラップ</h3>
+                            <p class="mb-4 text-slate-600">シュリンクラップモディファイアは、オブジェクトを別のオブジェクトの表面に「吸着」させる強力なツールです。リトポロジーにおいて、新しく作成するローポリゴンメッシュをハイポリゴンメッシュの形状に沿わせるため不可欠な役割を果たします。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">モディファイアの追加:</span>
@@ -325,7 +507,7 @@
                                 </li>
                                 <li>
                                     <span class="font-semibold">スナップモードとオフセット:</span>
-                                    <p class="ml-4 text-sm text-slate-600"><strong>スナップモード (Wrap Method)</strong>:
+                                    <p class="ml-4 text-sm text-slate600"><strong>スナップモード (Wrap Method)</strong>:
                                         <ul class="list-disc list-inside text-sm text-slate-600 ml-8">
                                             <li><strong>Nearest Surface Point (最も近いサーフェス点)</strong>: 各頂点がターゲットメッシュの最も近い点に吸着します。</li>
                                             <li><strong>Project (投影)</strong>: 指定された軸に沿ってターゲットメッシュに投影します。</li>
@@ -343,8 +525,8 @@
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">2.4 ノーマルマップのベイク</h3>
-                            <p class="mb-4 text-slate-600">ノーマルマップのベイクとは、ハイポリゴンモデルの持つ詳細な表面の凹凸情報を、画像データ（ノーマルマップ）として抽出し、それをローポリゴンモデルに適用する技術です。これにより、ローポリゴンモデルがまるでハイポリゴンモデルであるかのように、リアルな陰影やディテールを持つことができます。ゲームやリアルタイムレンダリングで非常に重要な最適化手法です。</p>
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">ノーマルマップのベイク</h3>
+                            <p class="mb-4 text-slate-600">ノーマルマップのベイクとは、ハイポリゴンモデルの持つ詳細な表面の凹凸情報を、画像データ（ノーマルマップ）として抽出し、それをローポリゴンモデルに適用する技術です。これで、ローポリゴンモデルがまるでハイポリゴンモデルのように、リアルな陰影やディテールを持てるようになります。ゲームやリアルタイムレンダリングで非常に重要な最適化手法です。</p>
                             <ol class="list-decimal list-inside space-y-4 text-slate-700">
                                 <li>
                                     <span class="font-semibold">モデルとマテリアルの準備:</span>
@@ -368,7 +550,7 @@
                                     <span class="font-semibold">ノーマルマップの適用:</span>
                                     <p class="ml-4 text-sm text-slate-600">ノードエディタに戻り、ノーマルマップを読み込んだ「画像テクスチャ」ノードと「プリンシプルBSDF」ノードの間に「<strong>ノーマルマップ</strong>」ノードを追加します。</p>
                                     <p class="ml-4 text-sm text-slate-600">「画像テクスチャ」ノードの「カラー」出力を「ノーマルマップ」ノードの「カラー」入力に接続し、「ノーマルマップ」ノードの「ノーマル」出力を「プリンシプルBSDF」ノードの「ノーマル」入力に接続します。</p>
-                                    <p class="ml-4 text-sm text-slate-600">これにより、ローポリゴンモデルにハイポリゴンモデルのディテールが再現されます。</p>
+                                    <p class="ml-4 text-sm text-slate-600">これで、ローポリゴンモデルにハイポリゴンモデルのディテールが再現されます。</p>
                                 </li>
                             </ol>
                         </div>
@@ -376,382 +558,498 @@
                 </div>
             </section>
 
-            <section id="generative-ai" class="content-section">
-                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">3. 代表的な3D生成AIの活用</h2>
-                    <p class="mb-6 text-slate-600">テキストや2D画像から3Dモデルを生成するAIツールが急速に進化しています。これらのツールは、アイデア出しやベースモデルの作成を大幅に効率化し、Blenderでの詳細な作業へと繋げることができます。</p>
-
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">3.1 hyper3d.ai</h3>
-                            <p class="mb-4 text-slate-600">テキストプロンプトや画像を入力することで、高品質な3Dモデルを生成するツールです。特に写実的なモデルの生成に強みを持つことがあります。</p>
-                            <div class="bg-slate-50 p-4 rounded-lg space-y-2">
-                                <h4 class="font-semibold">使用方法の概要</h4>
-                                <ul class="list-disc list-inside text-sm text-slate-600">
-                                    <li>Webサイトにアクセスし、アカウントを作成・ログインします。</li>
-                                    <li>テキストで生成したいオブジェクトの詳細な説明を入力します（例: 「A photorealistic red car with chrome wheels」）。</li>
-                                    <li>または、2D画像をアップロードして、それを基に3Dモデルを生成します。</li>
-                                    <li>生成プロセスを開始し、しばらく待つと3Dモデルが完成します。</li>
-                                    <li>生成されたモデルは、通常GLBやFBXなどの形式でダウンロードできます。</li>
-                                    <li>ダウンロードしたモデルをBlenderにインポートし、さらに編集や調整を行います。</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">3.2 studio.tripo3d.ai</h3>
-                            <p class="mb-4 text-slate-600">Tripo AIは、特に高速かつ高品質な3Dモデル生成に注力しているAIツールです。シンプルなインターフェースで直感的に利用できます。</p>
-                            <div class="bg-slate-50 p-4 rounded-lg space-y-2">
-                                <h4 class="font-semibold">使用方法の概要</h4>
-                                <ul class="list-disc list-inside text-sm text-slate-600">
-                                    <li>Tripo AI Studioのウェブサイトにアクセスし、利用を開始します。</li>
-                                    <li>生成したい3Dモデルのコンセプトをテキストプロンプトで記述します。</li>
-                                    <li>AIがモデルを生成し始めます。高速な生成が特徴です。</li>
-                                    <li>生成されたモデルのプレビューを確認し、必要であれば調整します。</li>
-                                    <li>GLBやOBJなどの標準的な3Dファイル形式でモデルをエクスポートします。</li>
-                                    <li>Blenderに取り込み、マテリアルの微調整、追加のモデリング、シーンへの統合などを行います。</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="md:col-span-2">
-                            <h3 class="text-xl font-semibold mb-3 text-slate-600">3.3 meshy.ai</h3>
-                            <p class="mb-4 text-slate-600">テキストから3D、画像から3D、さらにはテキストからテクスチャを生成する機能など、多様な生成オプションを持つAIプラットフォームです。ゲームアセット制作にも活用されます。</p>
-                            <div class="bg-slate-50 p-4 rounded-lg space-y-2">
-                                <h4 class="font-semibold">使用方法の概要</h4>
-                                <ul class="list-disc list-inside text-sm text-slate-600">
-                                    <li>Meshy.aiのウェブサイトにアクセスし、サインアップ・ログインします。</li>
-                                    <li>「Text to 3D」でテキストプロンプトからモデルを生成したり、「Image to 3D」で画像からモデルを生成したりします。</li>
-                                    <li>特に「Text to Texture」機能は、既存の3Dモデルにプロンプトでテクスチャを適用できるため、Blenderとの連携に非常に有効です。</li>
-                                    <li>生成されたモデルやテクスチャはダウンロード可能です。</li>
-                                    <li>Blenderにインポートして、メッシュの最適化、リトポロジー、リギング、アニメーションなどの後処理を行います。</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                     <p class="mt-8 text-slate-700 font-semibold">これらの生成AIツールは、完璧なモデルを一発で生成するものではなく、Blenderでの後処理（クリーニング、最適化、UV展開、リギングなど）と組み合わせることで、その真価を発揮します。</p>
-                </div>
-            </section>
 
             <section id="blender-mcp" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">4. Blender MCPでAIと共に創る</h2>
-                     <p class="mb-8 text-slate-600">Blender MCPは、自然言語（プロンプト）でBlenderを操作できるアドオンです。Blenderの操作知識が少なくても、AIとの対話を通じて直感的にモデリングを進めることができます。ここでは、特にClaude Desktopと連携してBlender MCPを起動し、シンプルなシーンを作成する手順を解説します。</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-700 mb-4">Blender MCP</h2>
+                     <p class="mb-6 text-base md:text-lg text-slate-600 leading-relaxed">Blender MCPは、<strong>Model Context Protocol</strong>を通じてClaude AIとBlenderを直接接続するアドオンです。自然言語でBlenderを操作でき、オブジェクトの作成・変更、マテリアルの適用、シーンの情報取得などが可能になります。</p>
                     
-                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">4.1 Claude Desktopと連携したBlender MCPの起動</h3>
-                    <p class="mb-4 text-slate-600">Blender MCPは、BlenderとLLM（大規模言語モデル）を繋ぐインターフェースとして機能します。Claude Desktopのようなローカルで動作するLLM環境と連携することで、よりプライベートかつ柔軟な形でAIを活用できます。</p>
-                    <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-8">
+                        <h4 class="font-semibold text-blue-800 mb-3">🔗 Blender MCPについて</h4>
+                        <p class="text-blue-700 text-sm mb-3">Blender MCPは、Blender内にソケットサーバーを作成し、Claude AIと双方向通信を行います。これにより、プロンプトベースの3Dモデリングが可能になります。</p>
+                        <p class="text-blue-700 text-sm mb-4"><strong>主な機能：</strong> オブジェクト操作、マテリアル制御、シーン情報取得、Pythonコード実行、Poly HavenアセットやHyper3D連携</p>
+                        <a href="https://github.com/ahujasid/blender-mcp" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub リポジトリ
+                        </a>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200">セットアップ手順</h3>
+                    <p class="mb-4 text-slate-600">Blender MCPを使用するには、Blenderアドオンの設定とClaude Desktopの設定が必要です。以下の手順で進めてください。</p>
+                    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200 mb-6">
+                        <h4 class="font-semibold text-yellow-800 mb-3">📝 事前準備</h4>
+                        <ul class="text-yellow-700 text-sm space-y-2">
+                            <li>• Blender 3.0以上</li>
+                            <li>• Python 3.10以上</li>
+                            <li>• uvパッケージマネージャー（Mac: <code class="bg-yellow-100 px-1 rounded">brew install uv</code>）</li>
+                        </ul>
+                    </div>
+
+                    <ol class="list-decimal list-inside space-y-6 text-slate-700">
                         <li>
-                            <span class="font-semibold">Claude Desktopのインストールと準備:</span>
-                            <p class="ml-4 text-sm text-slate-600">まず、Claude Desktopアプリケーションをインストールし、起動します。Blender MCPとの連携に必要な設定（APIキーの発行や、ローカルサーバーの立ち上げなど）があれば、Claude Desktopのドキュメントに従って完了させてください。</p>
-                            <p class="ml-4 text-sm text-slate-600">Blender MCPがClaude DesktopのAPIエンドポイントにアクセスできるよう、ネットワーク設定（例: ファイアウォールの許可、ポート指定など）を確認します。</p>
+                            <span class="font-semibold">Blenderアドオンのインストール:</span>
+                            <div class="ml-4 space-y-2 text-sm text-slate-600">
+                                <p>• <a href="https://github.com/ahujasid/blender-mcp" target="_blank" class="text-blue-600 hover:text-blue-700 transition-colors font-medium">GitHubリポジトリ</a>から<code class="bg-slate-100 px-1 rounded">addon.py</code>をダウンロード</p>
+                                <p>• Blender > 編集 > プリファレンス > アドオン > インストールでファイルを選択</p>
+                                <p>• 「Interface: Blender MCP」にチェックで有効化</p>
+                            </div>
                         </li>
                         <li>
-                            <span class="font-semibold">Blender MCPアドオンの設定:</span>
-                            <p class="ml-4 text-sm text-slate-600">Blenderを起動し、「編集」>「プリファレンス」>「アドオン」からBlender MCPアドオンがインストールされ、有効になっていることを確認します。</p>
-                            <p class="ml-4 text-sm text-slate-600">Blender MCPのアドオン設定内で、LLMサービスとしてClaude DesktopのローカルAPIエンドポイント（URL）と必要な認証情報（もしあれば）を設定します。これにより、Blender MCPがClaude Desktopと通信できるようになります。</p>
+                            <span class="font-semibold">Claude Desktopの設定:</span>
+                            <div class="ml-4 space-y-3 text-sm text-slate-600">
+                                <p>Claude Desktopの設定ファイルを編集します：</p>
+                                <div class="bg-slate-800 text-white p-4 rounded-lg font-mono text-xs">
+                                    <div class="text-slate-300 mb-2">Claude > Settings > Developer > Edit Config</div>
+                                    <pre>{
+  "mcpServers": {
+    "blender": {
+      "command": "uvx",
+      "args": ["blender-mcp"]
+    }
+  }
+}</pre>
+                                </div>
+                            </div>
                         </li>
                         <li>
-                            <span class="font-semibold">Blender MCPパネルの表示と対話開始:</span>
-                            <p class="ml-4 text-sm text-slate-600">3Dビューポートの右側サイドバー（<span class="font-mono bg-slate-100 px-1 rounded">Nキー</span>で表示/非表示）にBlender MCPのパネルが表示されていることを確認します。</p>
-                            <p class="ml-4 text-sm text-slate-600">パネル内のテキスト入力欄に最初のプロンプトを入力し、AIとの対話を開始します。これにより、Claude DesktopがバックエンドでBlenderの操作指示を生成し、Blender MCPを通じて実行されます。</p>
+                            <span class="font-semibold">接続開始:</span>
+                            <div class="ml-4 space-y-2 text-sm text-slate-600">
+                                <p>• Blenderの3Dビューで<span class="font-mono bg-slate-100 px-1 rounded">Nキー</span>を押してサイドバーを表示</p>
+                                <p>• 「BlenderMCP」タブで「Connect to Claude」ボタンをクリック</p>
+                                <p>• Claude Desktopでハンマーアイコンが表示されたら準備完了</p>
+                            </div>
                         </li>
                     </ol>
 
-                    <h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2 border-slate-200 mt-10">4.2 MCPを利用したシンプルなシーン作成</h3>
-                    <p class="mb-4 text-slate-600">ここでは、Blender MCPを使って基本的な部屋のようなシーンを作成し、テクスチャを適用するまでの一連の工程を体験します。</p>
-                    <div class="flex flex-col items-center">
-                        <div class="w-full max-w-md">
-                            <div class="relative mb-8 text-center step-connector">
-                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">1</div>
-                                <h3 class="mt-3 font-semibold">シンプルな円柱の追加</h3>
-                                <p class="text-sm text-slate-500">Blender MCPのパネルに以下のプロンプトを入力して実行します。</p>
-                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Add a cylinder." (円柱を追加して)</div>
-                            </div>
-                            <div class="relative mb-8 text-center step-connector">
-                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">2</div>
-                                <h3 class="mt-3 font-semibold">床の作成</h3>
-                                <p class="text-sm text-slate-500">次に、床となる平面を作成します。サイズを調整し、円柱の下に配置します。</p>
-                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Add a plane and scale it large to be a floor." (平面を追加して、床になるように大きく拡大して)</div>
-                            </div>
-                             <div class="relative mb-8 text-center step-connector">
-                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">3</div>
-                                <h3 class="mt-3 font-semibold">壁の作成</h3>
-                                <p class="text-sm text-slate-500">床の周りに壁を作成します。複数の壁を個別に作成するか、大きな平面から押し出す指示も可能です。</p>
-                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Create four walls around the floor." (床の周りに4つの壁を作成して)</div>
-                                <p class="mt-2 text-sm text-slate-500">または、"Add a cube, scale it thin and tall, then duplicate it to form walls." (キューブを追加し、薄く高く拡大し、複製して壁を形成して)など。</p>
-                            </div>
-                            <div class="relative mb-8 text-center step-connector">
-                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">4</div>
-                                <h3 class="mt-3 font-semibold">テクスチャの準備（Poly Havenから）</h3>
-                                <p class="text-sm text-slate-500">外部サイトから高品質なテクスチャをダウンロードします。今回は<strong>Poly Haven</strong>を利用します。</p>
-                                <ul class="list-disc list-inside text-sm text-slate-600 mt-2">
-                                    <li>Poly Havenのウェブサイト (<a href="https://polyhaven.com/textures" target="_blank" class="text-blue-600 hover:underline">https://polyhaven.com/textures</a>) にアクセスします。</li>
-                                    <li>「brick (レンガ)」のようなキーワードで検索し、[Image of レンガテクスチャの例]気に入ったレンガのテクスチャセット（Albedo/Diffuse, Normal, Roughnessなどの画像が含まれる）をダウンロードします。</li>
-                                    <li>ダウンロードしたファイルは、Blenderからアクセスしやすい場所に保存しておきます。</li>
-                                </ul>
-                            </div>
-                            <div class="relative mb-8 text-center step-connector">
-                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">5</div>
-                                <h3 class="mt-3 font-semibold">テクスチャマテリアルの作成と適用</h3>
-                                <p class="text-sm text-slate-500">ダウンロードしたテクスチャを使ってBlender MCP経由でマテリアルを作成し、床に適用します。事前に床オブジェクトを選択しておきましょう。</p>
-                                <div class="mt-2 text-left bg-slate-800 text-white p-3 rounded-lg font-mono text-xs">"Create a material named 'BrickFloor' using the downloaded brick textures and apply it to the selected object." (ダウンロードしたレンガテクスチャを使って「BrickFloor」というマテリアルを作成し、選択したオブジェクトに適用して)</div>
-                                <p class="mt-2 text-sm text-slate-500">Blender MCPがテクスチャファイルのパスを認識できない場合、手動でマテリアルノードにテクスチャを接続する必要があるかもしれません。</p>
-                            </div>
-                            <div class="relative text-center last">
-                                <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">6</div>
-                                <h3 class="mt-3 font-semibold">最終確認と調整</h3>
-                                <p class="text-sm text-slate-500">作成されたシーンを確認し、必要に応じてBlenderの通常の機能で微調整を行います。</p>
-                            </div>
+                    <div class="bg-gradient-to-br from-white to-slate-50 p-8 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6 pb-3 border-b-2 border-slate-300">MCPを利用したシンプルなシーン作成</h3>
+                        <p class="mb-6 text-lg text-slate-700 leading-relaxed">接続が完了したら、Claudeに自然言語で指示を出してBlenderを操作できます。以下の例で基本的な部屋シーンを作成してみましょう。</p>
+                        <div class="mb-6">
+                            <img src="https://via.placeholder.com/600x300/e2e8f0/64748b?text=Blender+MCP+Interface" alt="Blender MCPインターフェース" class="w-full h-auto rounded-lg shadow-sm">
                         </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="web-usage" class="content-section">
-                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">5. Webでの活用</h2>
-                    <p class="mb-6 text-slate-600">作成した3DモデルをWebサイト上で魅力的に表示するための方法を学びます。様々なプラットフォームやライブラリを活用し、あなたの作品を世界に公開しましょう。</p>
-                    
-                    <div class="mb-8">
-                        <h3 class="text-xl font-semibold mb-3 text-slate-600">ファイル形式の比較</h3>
-                        <p class="text-sm text-slate-500 mb-4">クリックして各形式の特徴を確認できます。</p>
-                        <div class="overflow-x-auto">
-                            <table id="format-table" class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr>
-                                        <th class="border-b-2 p-3 bg-slate-100">形式</th>
-                                        <th class="border-b-2 p-3 bg-slate-100">主な用途</th>
-                                        <th class="border-b-2 p-3 bg-slate-100">アニメーション</th>
-                                        <th class="border-b-2 p-3 bg-slate-100">Web/VR</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="hover:bg-slate-100 cursor-pointer">
-                                        <td class="border-b p-3 font-semibold">FBX (.fbx)</td>
-                                        <td class="border-b p-3">ゲームエンジン、DCCツール連携</td>
-                                        <td class="border-b p-3 text-green-600">✔ 対応</td>
-                                        <td class="border-b p-3">△一手間必要</td>
-                                    </tr>
-                                    <tr class="hover:bg-slate-100 cursor-pointer">
-                                        <td class="border-b p-3 font-semibold">GLB/glTF (.glb)</td>
-                                        <td class="border-b p-3">Web、AR/VR</td>
-                                        <td class="border-b p-3 text-green-600">✔ 対応</td>
-                                        <td class="border-b p-3 text-green-600">◎ 最適</td>
-                                    </tr>
-                                    <tr class="hover:bg-slate-100 cursor-pointer">
-                                        <td class="border-b p-3 font-semibold">OBJ (.obj)</td>
-                                        <td class="border-b p-3">静的モデル、3Dプリント</td>
-                                        <td class="border-b p-3 text-red-600">✖ 非対応</td>
-                                        <td class="border-b p-3">△ 非推奨</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        
+                        <div class="space-y-10">
+                            <!-- ステップ1 -->
+                            <div class="flex flex-col lg:flex-row items-start gap-6 p-6 bg-white rounded-lg border border-slate-200 shadow-lg">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">1</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-slate-800 mb-3">シンプルな円柱の追加</h4>
+                                    <p class="text-base text-slate-600 mb-4 leading-relaxed">Blender MCPのパネルに以下のプロンプトを入力して実行します。</p>
+                                    <div class="bg-slate-800 text-white p-4 rounded-lg font-mono text-sm border-l-4 border-slate-500">
+                                        <div class="text-slate-300 text-xs mb-1">プロンプト例:</div>
+                                        <div>"Add a cylinder." (円柱を追加して)</div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div>
-                        <h3 class="text-xl font-semibold mb-3 text-slate-600">Webでの利用方法</h3>
-                        <div class="space-y-4">
-                            <div class="bg-slate-50 p-4 rounded-lg flex flex-col gap-2">
-                                <h4 class="font-semibold">Sketchfab</h4>
-                                <p class="text-sm text-slate-500">オンラインの3Dモデル共有プラットフォーム。Blenderから直接エクスポートしたモデルをアップロードするだけで、Web上で公開・共有できます。</p>
-                                <a href="https://sketchfab.com/" target="_blank" rel="noopener noreferrer" class="self-start px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">公式サイトへ</a>
+                            <!-- ステップ2 -->
+                            <div class="flex flex-col lg:flex-row items-start gap-6 p-6 bg-white rounded-lg border border-slate-200 shadow-lg">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">2</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-slate-800 mb-3">床の作成</h4>
+                                    <p class="text-base text-slate-600 mb-4 leading-relaxed">次に、床となる平面を作成します。サイズを調整し、円柱の下に配置します。</p>
+                                    <div class="bg-slate-800 text-white p-4 rounded-lg font-mono text-sm border-l-4 border-slate-500">
+                                        <div class="text-slate-300 text-xs mb-1">プロンプト例:</div>
+                                        <div>"Add a plane and scale it large to be a floor." (平面を追加して、床になるように大きく拡大して)</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-slate-50 p-4 rounded-lg flex flex-col gap-2">
-                                <h4 class="font-semibold">PlayCanvas</h4>
-                                <p class="text-sm text-slate-500">Webブラウザ上で動作する強力な3Dゲームエンジン。リアルタイムコラボレーション機能も魅力です。</p>
-                                <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4">
-                                    <li>BlenderからGLB/FBX形式でエクスポートします。</li>
-                                    <li>PlayCanvasエディタにモデルをインポートし、シーンに配置します。</li>
-                                    <li>マテリアルやライト、JavaScriptスクリプトでインタラクティブな要素を追加できます。</li>
-                                    <li>ワンクリックでWebサイトとして公開が可能です。</li>
-                                </ul>
-                                <a href="https://playcanvas.com/" target="_blank" rel="noopener noreferrer" class="self-start px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">公式サイトへ</a>
+
+                            <!-- ステップ3 -->
+                            <div class="flex flex-col lg:flex-row items-start gap-6 p-6 bg-white rounded-lg border border-slate-200 shadow-lg">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">3</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-slate-800 mb-3">壁の作成</h4>
+                                    <p class="text-base text-slate-600 mb-4 leading-relaxed">床の周りに壁を作成します。複数の壁を個別に作成するか、大きな平面から押し出す指示も可能です。</p>
+                                    <div class="space-y-3">
+                                        <div class="bg-slate-800 text-white p-4 rounded-lg font-mono text-sm border-l-4 border-slate-500">
+                                            <div class="text-slate-300 text-xs mb-1">プロンプト例 1:</div>
+                                            <div>"Create four walls around the floor." (床の周りに4つの壁を作成して)</div>
+                                        </div>
+                                        <div class="bg-slate-700 text-white p-4 rounded-lg font-mono text-sm border-l-4 border-slate-400">
+                                            <div class="text-slate-300 text-xs mb-1">プロンプト例 2:</div>
+                                            <div>"Add a cube, scale it thin and tall, then duplicate it to form walls." (キューブを追加し、薄く高く拡大し、複製して壁を形成して)</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                             <div class="bg-slate-50 p-4 rounded-lg flex flex-col gap-2">
-                                <h4 class="font-semibold">Three.js / Babylon.js</h4>
-                                <p class="text-sm text-slate-500">JavaScriptライブラリを使い、インタラクティブな3D体験をWebサイトに直接実装します。GLB形式が特に推奨されます。</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">Three.js 公式</a>
-                                    <a href="https://www.babylonjs.com/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">Babylon.js 公式</a>
+
+                            <!-- ステップ4 -->
+                            <div class="flex flex-col lg:flex-row items-start gap-6 p-6 bg-white rounded-lg border border-slate-200 shadow-lg">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">4</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-slate-800 mb-3">テクスチャの準備（Poly Havenから）</h4>
+                                    <p class="text-base text-slate-600 mb-4 leading-relaxed">外部サイトから高品質なテクスチャをダウンロードします。今回は<strong>Poly Haven</strong>を利用します。</p>
+                                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                        <h5 class="font-semibold text-blue-800 mb-3">手順：</h5>
+                                        <ol class="list-decimal list-inside space-y-2 text-slate-700">
+                                            <li>Poly Havenのウェブサイト (<a href="https://polyhaven.com/textures" target="_blank" class="text-blue-600 hover:underline font-medium">https://polyhaven.com/textures</a>) にアクセスします。</li>
+                                            <li>「brick (レンガ)」のようなキーワードで検索し、気に入ったレンガのテクスチャセット（Albedo/Diffuse, Normal, Roughnessなどの画像が含まれる）をダウンロードします。</li>
+                                            <li>ダウンロードしたファイルは、Blenderからアクセスしやすい場所に保存しておきます。</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ステップ5 -->
+                            <div class="flex flex-col lg:flex-row items-start gap-6 p-6 bg-white rounded-lg border border-slate-200 shadow-lg">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-slate-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">5</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-slate-800 mb-3">テクスチャマテリアルの作成と適用</h4>
+                                    <p class="text-base text-slate-600 mb-4 leading-relaxed">ダウンロードしたテクスチャを使ってBlender MCP経由でマテリアルを作成し、床に適用します。事前に床オブジェクトを選択しておきましょう。</p>
+                                    <div class="bg-slate-800 text-white p-4 rounded-lg font-mono text-sm border-l-4 border-slate-500 mb-4">
+                                        <div class="text-slate-300 text-xs mb-1">プロンプト例:</div>
+                                        <div>"Create a material named 'BrickFloor' using the downloaded brick textures and apply it to the selected object." (ダウンロードしたレンガテクスチャを使って「BrickFloor」というマテリアルを作成し、選択したオブジェクトに適用して)</div>
+                                    </div>
+                                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                                        <p class="text-sm text-yellow-800"><strong>注意:</strong> Blender MCPがテクスチャファイルのパスを認識できない場合、手動でマテリアルノードにテクスチャを接続する必要があるかもしれません。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ステップ6 -->
+                            <div class="flex flex-col lg:flex-row items-start gap-6 p-6 bg-white rounded-lg border border-slate-200 shadow-lg">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">6</div>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-slate-800 mb-3">最終確認と調整</h4>
+                                    <p class="text-base text-slate-600 leading-relaxed">作成されたシーンを確認し、必要に応じてBlenderの通常の機能で微調整を行います。</p>
+                                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
+                                        <p class="text-sm text-green-800"><strong>完了!</strong> これでBlender MCPを使った基本的な部屋のモデリングが完成しました。</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <p class="mt-8 text-slate-700 font-semibold">VRChatでの活用方法については、「<span class="text-blue-600 font-bold cursor-pointer" onclick="switchTab('vrchat-guide')">VRChatモデル準備</span>」セクションで詳しく解説しています。ぜひそちらもご覧ください！</p>
-                 </div>
+                </div>
             </section>
             
-            <section id="vrchat-guide" class="content-section">
+            <section id="export-guide" class="content-section">
                  <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-2">6. VRChatモデル準備</h2>
-                    <p class="mb-6 text-slate-600">Blenderで作成した3DモデルをソーシャルVRプラットフォーム「VRChat」で利用するための具体的な手順を学びます。Unityを経由したモデルのセットアップとアップロードのプロセスを詳細に解説します。</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-700 mb-4">3Dモデルのエクスポート</h2>
+                    <p class="mb-8 text-base md:text-lg text-slate-600 leading-relaxed">
+                        Blenderで作成した3Dモデルを他のプラットフォームで活用するために、適切なファイル形式でエクスポートする方法を学びます。Web、VRChat、3Dプリントなど、用途に応じた最適なフォーマットの選択から具体的な設定まで解説します。
+                    </p>
                     
-                    <div class="space-y-4">
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">6.1 Blender → FBXエクスポート</h3>
-                            <p class="text-sm text-slate-500">Blenderで作成したモデルをUnityで読み込むために、互換性の高いFBX形式でエクスポートします。</p>
-                            <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
-                                <li><strong>ファイル > エクスポート > FBX (.fbx)</strong> を選択します。</li>
-                                <li><strong>Transform (トランスフォーム)</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li><strong>Scale (スケール)</strong>: 通常、Unityでは1単位が1メートルに相当するため、Blenderのシーンスケールに合わせて適切な値を設定します（例: `All: 0.01` でUnityの1単位がBlenderの1メートルになるように調整する場合が多いです）。</li>
-                                        <li><strong>Apply Transform (トランスフォームを適用)</strong>: チェックを入れることで、Blender上で行ったオブジェクトのスケール、回転、位置の変更をモデルのジオメトリに焼き付けます。Unityでのインポート時の予期せぬ問題を防ぐために推奨されます。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Objects (オブジェクト)</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li><strong>Selected Objects (選択したオブジェクト)</strong>: エクスポートしたいメッシュ、アーマチュア、ライト、カメラなどをBlender上で事前に選択し、このオプションにチェックを入れることで、不要な要素が含まれるのを防ぎます。</li>
-                                        <li><strong>Object Types (オブジェクトタイプ)</strong>: エクスポートに含める要素（Mesh, Armature, Emptyなど）を選択します。通常、アバターの場合はメッシュとアーマチュアを含めます。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Armature (アーマチュア)</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li><strong>Add Leaf Bones (末端ボーンを追加)</strong>: チェックを外すことを推奨します。Unityが不要なボーンを追加するのを防ぎます。</li>
-                                        <li><strong>Primary Bone Axis / Secondary Bone Axis</strong>: Unityでのボーンの向きがBlenderと異なる場合があるため、モデルが意図しない向きになる場合は調整が必要ですが、多くの場合デフォルトで問題ありません。</li>
-                                        <li>（アバターの場合）<strong>Apply Modifiers (モディファイアーを適用)</strong>: 特にSubdivision Surfaceモディファイアーを使っている場合、Unityに持ち込む前に適用しておくことを検討します。これにより、Unityでの表示がBlenderでのプレビューに近くなりますが、ポリゴン数が増える点に注意が必要です。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Animation (アニメーション)</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>作成したアニメーション（例: 歩行アニメーション、表情アニメーション）を含める場合はチェックを入れます。</li>
-                                        <li><strong>NLA Strips (NLAストリップ)</strong>: 非線形アニメーション（NLAエディタで管理している場合）を含めるかどうか。</li>
-                                        <li><strong>All Actions (全てのアクション)</strong>: 複数のアニメーションアクションがある場合、全て含めるか選択できます。</li>
-                                    </ul>
-                                </li>
-                                <li>以上の設定後、「FBXをエクスポート」をクリックしてファイルを保存します。</li>
-                            </ul>
+                    <div class="mb-12">
+                        <h3 class="text-2xl font-semibold mb-4 text-slate-800 border-b pb-2 border-slate-200">ファイル形式の比較</h3>
+                        <p class="text-base text-slate-600 mb-6 leading-relaxed">用途に応じて最適なファイル形式を選択しましょう。</p>
+                        <div class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table id="format-table" class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-b-2 border-slate-200 p-4 bg-slate-50 text-slate-800 font-semibold">形式</th>
+                                            <th class="border-b-2 border-slate-200 p-4 bg-slate-50 text-slate-800 font-semibold">主な用途</th>
+                                            <th class="border-b-2 border-slate-200 p-4 bg-slate-50 text-slate-800 font-semibold">アニメーション</th>
+                                            <th class="border-b-2 border-slate-200 p-4 bg-slate-50 text-slate-800 font-semibold">特徴</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="hover:bg-slate-50 transition-all duration-200">
+                                            <td class="border-b border-slate-100 p-4 font-semibold text-slate-800">FBX (.fbx)</td>
+                                            <td class="border-b border-slate-100 p-4 text-slate-600">Unity、VRChat、ゲームエンジン</td>
+                                            <td class="border-b border-slate-100 p-4 text-green-600 font-medium">✔ 対応</td>
+                                            <td class="border-b border-slate-100 p-4 text-slate-600 text-sm">リグ、マテリアル保持</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-all duration-200">
+                                            <td class="border-b border-slate-100 p-4 font-semibold text-slate-800">GLB/glTF (.glb)</td>
+                                            <td class="border-b border-slate-100 p-4 text-slate-600">Web、AR/VR、three.js</td>
+                                            <td class="border-b border-slate-100 p-4 text-green-600 font-medium">✔ 対応</td>
+                                            <td class="border-b border-slate-100 p-4 text-slate-600 text-sm">軽量、Web最適化</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-all duration-200">
+                                            <td class="border-b border-slate-100 p-4 font-semibold text-slate-800">OBJ (.obj)</td>
+                                            <td class="border-b border-slate-100 p-4 text-slate-600">3Dプリント、静的表示</td>
+                                            <td class="border-b border-slate-100 p-4 text-red-600 font-medium">✖ 非対応</td>
+                                            <td class="border-b border-slate-100 p-4 text-slate-600 text-sm">シンプル、互換性高</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-all duration-200">
+                                            <td class="border-b-0 p-4 font-semibold text-slate-800">STL (.stl)</td>
+                                            <td class="border-b-0 p-4 text-slate-600">3Dプリント</td>
+                                            <td class="border-b-0 p-4 text-red-600 font-medium">✖ 非対応</td>
+                                            <td class="border-b-0 p-4 text-slate-600 text-sm">メッシュ情報のみ</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">6.2 Unityでの設定</h3>
-                            <p class="text-sm text-slate-500">BlenderからエクスポートしたモデルをVRChatで動作させるために、Unityでの詳細なセットアップを行います。</p>
-                            <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
-                                <li><strong>Unity HubとUnity Editorのインストール</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>VRChatが公式で推奨しているバージョンのUnity HubとUnity Editorをインストールします。VRChatの公式ドキュメントで最新の推奨バージョンを確認してください。</li>
-                                        <li>新しいUnityプロジェクトを作成します（3D Coreなど基本的なテンプレートでOK）。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>VRChat SDKの導入</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>VRChat公式サイトからVRChat SDK（アバター用、またはワールド用）をダウンロードします。</li>
-                                        <li>Unityプロジェクトを開き、ダウンロードしたSDKの`.unitypackage`ファイルを`Assets`フォルダにドラッグ＆ドロップするか、Unityメニューバーの`Assets` > `Import Package` > `Custom Package...`から選択してインポートします。</li>
-                                        <li>SDKをインポートすると、通常`VRChat SDK`メニューがUnityのメニューバーに表示されます。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>FBXモデルのインポート</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>BlenderからエクスポートしたFBXファイルをUnityの`Assets`フォルダにドラッグ＆ドロップします。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>モデルのRig設定</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>UnityのProjectビューでインポートしたFBXモデルを選択し、Inspectorビューの「<strong>Rig</strong>」タブをクリックします。</li>
-                                        <li>「<strong>Animation Type (アニメーションタイプ)</strong>」を「<strong>Humanoid (ヒューマノイド)</strong>」（人型アバターの場合）に設定し、「<strong>Generate Generic Avatar (汎用アバターを生成)</strong>」ではなく「<strong>Create From This Model (このモデルから作成)</strong>」を選択し、「Apply」をクリックします。</li>
-                                        <li>「<strong>Configure Avatar (アバターを設定)</strong>」をクリックし、ボーンが正しくマッピングされているか確認します。Unityが自動で認識しきれない場合は、手動で対応するボーンをドラッグ＆ドロップしてマッピングを修正します。特に指などの小さなボーンが正しく認識されていないことがあります。最後に「Done」をクリックして保存します。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Materials設定</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>「<strong>Materials (マテリアル)</strong>」タブをクリックします。</li>
-                                        <li>「<strong>Extract Materials (マテリアルを抽出)</strong>」をクリックして、FBXファイル内に埋め込まれたマテリアルをUnityプロジェクト内に独立したマテリアルファイルとして抽出します。これにより、マテリアルの編集が容易になります。</li>
-                                        <li>抽出された各マテリアルを選択し、InspectorでシェーダーをVRChatに適したシェーダー（例: `VRChat/Standard`や、より軽量な`lilToon`、`Arktoon`などを別途インポートして使用）に設定し、テクスチャを割り当てます。テクスチャの`Filter Mode`は`Bilinear`、`Wrap Mode`は`Repeat`が一般的です。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>VRChat Componentの追加</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>HierarchyビューにFBXモデル（またはそのルートオブジェクト）をドラッグ＆ドロップしてシーンに配置します。</li>
-                                        <li>シーン上のモデルを選択し、Inspectorビュー下部の「Add Component (コンポーネントを追加)」から以下を追加します。
-                                            <ul class="list-disc list-inside ml-4">
-                                                <li>アバターの場合: <strong>VRC Avatar Descriptor</strong></li>
-                                                <li>ワールドの場合: <strong>VRC Scene Descriptor</strong></li>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-slate-800 border-b pb-2 border-slate-200">Webでの利用方法</h3>
+                        <div class="space-y-6">
+                            <!-- Sketchfab -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-semibold text-slate-800 mb-3">Sketchfab</h4>
+                                        <p class="text-base text-slate-600 leading-relaxed">オンラインの3Dモデル共有プラットフォーム。Blenderから直接エクスポートしたモデルをアップロードするだけで、Web上で公開・共有できます。</p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="https://sketchfab.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            公式サイトへ
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PlayCanvas -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-semibold text-slate-800 mb-3">PlayCanvas</h4>
+                                        <p class="text-base text-slate-600 mb-4 leading-relaxed">Webブラウザ上で動作する強力な3Dゲームエンジン。リアルタイムコラボレーション機能も魅力です。</p>
+                                        <div class="bg-slate-50 p-4 rounded-lg">
+                                            <h5 class="font-medium text-slate-700 mb-2">主な手順：</h5>
+                                            <ul class="list-disc list-inside space-y-1 text-sm text-slate-600">
+                                                <li>BlenderからGLB/FBX形式でエクスポートします。</li>
+                                                <li>PlayCanvasエディタにモデルをインポートし、シーンに配置します。</li>
+                                                <li>マテリアルやライト、JavaScriptスクリプトでインタラクティブな要素を追加できます。</li>
+                                                <li>ワンクリックでWebサイトとして公開が可能です。</li>
                                             </ul>
-                                        </li>
-                                        <li>`VRC Avatar Descriptor`では、<strong>Viewpoint (視点)</strong>（アバターの目の位置）、<strong>Lip Sync (リップシンク)</strong>（口の動き）、<strong>Expressions (表情)</strong>（カスタム表情メニュー）などを設定します。</li>
-                                        <li>`VRC Scene Descriptor`では、ワールドのスポーンポイントや環境設定などを行います。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>PhysBoneの設定</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>髪の毛や揺れるアクセサリーなど、物理演算で動かしたいボーンを持つオブジェクトには、そのボーンがアタッチされているGameObjectに<strong>VRC Phys Bone</strong>コンポーネントを追加します。</li>
-                                        <li>`VRC Phys Bone`のプロパティで、揺れの強度や重力、コライダー設定などを調整し、自然な揺れを再現します。モデルの体にめり込むのを防ぐために、適切なコライダー（Capsule Colliderなど）を設定することも重要です。</li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="https://playcanvas.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            公式サイトへ
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Three.js / Babylon.js -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                                <div class="flex flex-col gap-4">
+                                    <div>
+                                        <h4 class="text-xl font-semibold text-slate-800 mb-3">Three.js / Babylon.js</h4>
+                                        <p class="text-base text-slate-600 leading-relaxed">JavaScriptライブラリを使い、インタラクティブな3D体験をWebサイトに直接実装します。GLB形式が特に推奨されます。</p>
+                                    </div>
+                                    <div class="flex flex-wrap gap-3">
+                                        <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            Three.js 公式
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="https://www.babylonjs.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            Babylon.js 公式
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                         <div class="bg-slate-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-lg mb-2">6.3 VRChatへアップロード</h3>
-                            <p class="text-sm text-slate-500">Unityでのセットアップが完了したら、いよいよVRChatにモデルを公開します。アップロード前に最終確認と最適化を行いましょう。</p>
-                            <ul class="list-disc list-inside text-xs text-slate-600 mt-1 ml-4 space-y-1">
-                                <li><strong>VRChat SDKのコントロールパネルを開く</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>Unityメニューバーの`VRChat SDK` > `Show Control Panel`を選択します。</li>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-white to-purple-50 p-6 rounded-lg border border-purple-200 shadow-lg mt-8">
+                        <h3 class="font-semibold text-xl md:text-2xl mb-4 text-slate-700">VRChat向けアバター出力</h3>
+                        <p class="text-base md:text-lg text-slate-600 mb-4 leading-relaxed">ソーシャルVRプラットフォーム「VRChat」でアバターとして使用するためのFBXエクスポート設定を詳しく解説します。UnityのVRChat SDKを通じてアップロードするための最適化されたワークフローを学びます。</p>
+                        
+                        <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-lg mb-4">
+                            <h4 class="font-semibold text-lg mb-2 text-slate-700">詳細なFBXエクスポート手順</h4>
+                            <p class="text-sm md:text-base text-slate-600 mb-3">Blenderで作成したモデルをUnityで読み込むために、互換性の高いFBX形式でエクスポートします。</p>
+                            <div class="space-y-3">
+                                <div>
+                                    <strong class="text-slate-700">エクスポート手順:</strong>
+                                    <p class="text-sm text-slate-600 ml-4">ファイル > エクスポート > FBX (.fbx) を選択</p>
+                                </div>
+                                <div>
+                                    <strong class="text-slate-700">Transform (トランスフォーム):</strong>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 ml-4 space-y-1">
+                                        <li><strong>Scale:</strong> 通常0.01（UnityとBlenderのスケール差を調整）</li>
+                                        <li><strong>Apply Transform:</strong> チェック推奨（予期せぬ問題を防ぐ）</li>
                                     </ul>
-                                </li>
-                                <li><strong>Authentication (認証)</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>「Authentication」タブで、VRChatアカウントのユーザー名とパスワードを入力し、ログインします。</li>
+                                </div>
+                                <div>
+                                    <strong class="text-slate-700">Objects (オブジェクト):</strong>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 ml-4 space-y-1">
+                                        <li><strong>Selected Objects:</strong> 必要な要素のみ選択してエクスポート</li>
+                                        <li><strong>Object Types:</strong> Mesh + Armature を含める</li>
                                     </ul>
-                                </li>
-                                <li><strong>Build & Upload (ビルドとアップロード)</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>「Builder」タブに移動します。</li>
-                                        <li>シーンに`VRC Avatar Descriptor`または`VRC Scene Descriptor`が正しく設定されていれば、ここにモデルのステータスが表示されます。</li>
-                                        <li><strong>Performance (パフォーマンス)</strong>: 「Performance」タブで、モデルのパフォーマンスランク（Very Poor, Poor, Medium, Good, Excellent）を確認します。VRChatでは、多くのユーザーが快適に利用できるよう、モデルの最適化が非常に重要です。
-                                            <ul class="list-disc list-inside ml-4">
-                                                <li>**ポリゴン数**: 可能な限り削減します。</li>
-                                                <li>**マテリアル数**: ドローコールを減らすため、マテリアル数を統合することを検討します（アトラス化など）。</li>
-                                                <li>**物理演算の負荷**: PhysBoneのコンポーネント数やボーン数もパフォーマンスに影響します。</li>
-                                            </ul>
-                                        </li>
-                                        <li>「Build & Publish (ビルドして公開)」または「Build & Upload (ビルドしてアップロード)」ボタンをクリックします。これは、アバターかワールドか、あるいは既にアップロード済みかどうかによって表示が異なります。</li>
-                                        <li>ビルドプロセスが開始されます。これにはPCのスペックやモデルの複雑さによって数分から数十分かかる場合があります。</li>
+                                </div>
+                                <div>
+                                    <strong class="text-slate-700">Armature (アーマチュア):</strong>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 ml-4 space-y-1">
+                                        <li><strong>Add Leaf Bones:</strong> チェックを外す（不要なボーンを防ぐ）</li>
+                                        <li><strong>Apply Modifiers:</strong> Subdivision Surfaceを使用時は検討</li>
                                     </ul>
-                                </li>
-                                <li><strong>情報の入力</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>ビルドが完了すると、アップロードのための情報入力画面が表示されます。</li>
-                                        <li><strong>Name (名前)</strong>: モデルの名前を入力します。</li>
-                                        <li><strong>Description (説明)</strong>: モデルの説明文を入力します。</li>
-                                        <li><strong>Thumbnail (サムネイル)</strong>: モデルのサムネイル画像をUnityのシーンビューで設定し、「Set Thumbnail in Scene」をクリックして設定します。これはVRChat内でモデルを選択する際に表示されます。</li>
-                                        <li><strong>Privacy (公開設定)</strong>: 「Public (公開)」（誰でも利用可能）か「Private (非公開)」（自分だけ利用可能）を選択します。テスト中はPrivateにしておくのが一般的です。</li>
-                                        <li><strong>Content Warnings (コンテンツ警告)</strong>: モデルの内容に応じて適切な警告を設定します。</li>
+                                </div>
+                                <div>
+                                    <strong class="text-slate-700">Animation (アニメーション):</strong>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 ml-4 space-y-1">
+                                        <li>表情アニメーションや歩行アニメーションがある場合はチェック</li>
+                                        <li><strong>All Actions:</strong> 複数アニメーションを全て含める場合</li>
                                     </ul>
-                                </li>
-                                <li><strong>アップロード完了</strong>:
-                                    <ul class="list-circle list-inside ml-4">
-                                        <li>全ての情報を入力し、「Upload」ボタンをクリックします。</li>
-                                        <li>アップロードが完了すると、「Upload Complete!」のようなメッセージが表示され、VRChat内で自分のモデルとして選択・使用できるようになります。</li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                  </div>
             </section>
             
+            
             <section id="next-steps" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-700 mb-4">今後の学習について</h2>
-                    <p class="mb-6 text-slate-600">Blenderの学習は奥深く、終わりがありません。このセミナーをきっかけに、さらに知識を深めていくためのリソースを紹介します。</p>
-                    <div class="grid md:grid-cols-3 gap-6 text-center">
-                        <a href="https://docs.blender.org/manual/ja/latest/index.html" target="_blank" class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
-                            <h3 class="font-semibold">公式マニュアル</h3>
-                            <p class="text-sm text-slate-500 mt-1">最も正確で網羅的な情報源です。</p>
-                        </a>
-                        <a href="https://www.youtube.com/results?search_query=blender+%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB" target="_blank" class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
-                            <h3 class="font-semibold">YouTube</h3>
-                            <p class="text-sm text-slate-500 mt-1">国内外のクリエイターによる豊富なチュートリアル動画があります。</p>
-                        </a>
-                        <!-- ユーザーの要望に合わせて変更されたセクション -->
-                        <div class="block bg-slate-100 p-6 rounded-lg hover:bg-slate-200 hover:shadow-md transition-all">
-                            <h3 class="font-semibold">情報サイト</h3>
-                            <div class="text-sm text-slate-500 mt-1 space-y-2">
-                                <p>最新のCGニュースやチュートリアルが豊富です。</p>
-                                <a href="https://3dnchu.com/" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1 bg-blue-500 text-white rounded-md text-xs hover:bg-blue-600 transition-colors">3dnchu.comへ</a>
-                                <p>CGに関する多様な情報がまとめられています。</p>
-                                <a href="https://cgbox.jp/" target="_blank" rel="noopener noreferrer" class="inline-block px-3 py-1 bg-blue-500 text-white rounded-md text-xs hover:bg-blue-600 transition-colors">cgbox.jpへ</a>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-700 mb-4">参考情報・AI活用</h2>
+                    <p class="mb-8 text-base md:text-lg text-slate-600 leading-relaxed">
+                        さらに知識を深めていくためのリソースと、生成AIを活用した3Dモデル作成について紹介します。
+                    </p>
+
+                    <!-- 生成AI -->
+                    <div class="mb-10">
+                        <h3 class="text-2xl font-bold text-slate-700 mb-6 border-b pb-2 border-slate-200">生成AI活用</h3>
+                        <p class="mb-6 text-base text-slate-600 leading-relaxed">
+                            テキストや画像から3Dモデルを生成するAIツールが進化しています。アイデアを形にしたり、ベースとなるモデルを作る作業がぐっと楽になります。
+                        </p>
+
+                        <div class="space-y-6">
+                            <!-- hyper3d.ai -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-semibold mb-3 text-slate-800">hyper3d.ai</h4>
+                                        <p class="text-base text-slate-600 mb-4 leading-relaxed">テキストプロンプトや画像を入力することで、高品質な3Dモデルを生成するツールです。特に写実的なモデルの生成に強みを持ちます。</p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="https://hyper3d.ai/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            公式サイトへ
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- tripo3d.ai -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-semibold mb-3 text-slate-800">studio.tripo3d.ai</h4>
+                                        <p class="text-base text-slate-600 mb-4 leading-relaxed">高速かつ高品質な3Dモデル生成に注力しているAIツールです。シンプルなインターフェースで直感的に利用できます。</p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="https://studio.tripo3d.ai/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            公式サイトへ
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- meshy.ai -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-semibold mb-3 text-slate-800">meshy.ai</h4>
+                                        <p class="text-base text-slate-600 mb-4 leading-relaxed">テキストから3D、画像から3D、さらにはテキストからテクスチャを生成する機能など、多様な生成オプションを持つAIプラットフォームです。</p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="https://meshy.ai/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200 shadow-sm hover:shadow-md">
+                                            公式サイトへ
+                                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <p class="text-base text-slate-700 leading-relaxed">
+                                <strong>重要なポイント：</strong> これらの生成AIツールは、完璧なモデルを一発で生成するものではなく、Blenderでの後処理（クリーニング、最適化、UV展開、リギングなど）と組み合わせることで、その真価を発揮します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 学習リソース -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-slate-700 mb-6 border-b pb-2 border-slate-200">学習リソース</h3>
+                    </div>
+
+                    <!-- 公式マニュアル（重要なリソースとして強調） -->
+                    <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 mb-6">
+                        <div class="border-l-4 border-slate-600 pl-6">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-semibold text-slate-800 mb-2">公式マニュアル</h3>
+                                    <p class="text-base text-slate-600 mb-4 leading-relaxed">
+                                        最も正確で網羅的な情報源です。機能の詳細な説明から実践的なテクニックまで、Blenderの全てがここにあります。日本語版も充実しており、初心者から上級者まで必携のリソースです。
+                                    </p>
+                                    <a href="https://docs.blender.org/manual/ja/latest/index.html" target="_blank" 
+                                       class="block text-blue-600 hover:text-blue-700 transition-colors font-medium">
+                                        <span>公式マニュアルを開く</span>
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- その他のリソース -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- YouTube -->
+                        <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                            <div class="border-l-4 border-slate-600 pl-6">
+                                <h3 class="text-xl font-semibold text-slate-800 mb-4">YouTube</h3>
+                                <p class="text-base text-slate-600 mb-4 leading-relaxed">
+                                    国内外のクリエイターによる豊富なチュートリアル動画があります。実際の作業過程を見ながら学べるため、理解が深まります。
+                                </p>
+                                <a href="https://www.youtube.com/results?search_query=blender+%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB" target="_blank" 
+                                   class="block text-blue-600 hover:text-blue-700 transition-colors font-medium">
+                                    <span>YouTubeで検索</span>
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 情報サイト -->
+                        <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                            <div class="border-l-4 border-slate-600 pl-6">
+                                <h3 class="text-xl font-semibold text-slate-800 mb-4">情報サイト</h3>
+                                <p class="text-base text-slate-600 mb-4 leading-relaxed">
+                                    最新のCGニュースやチュートリアル、コミュニティの情報が豊富です。業界の動向も把握できます。
+                                </p>
+                                <div class="space-y-2">
+                                    <a href="https://3dnchu.com/" target="_blank" 
+                                       class="block text-blue-600 hover:text-blue-700 transition-colors">
+                                        3dnchu.com
+                                    </a>
+                                    <a href="https://cgbox.jp/" target="_blank" 
+                                       class="block text-blue-600 hover:text-blue-700 transition-colors">
+                                        cgbox.jp
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -759,50 +1057,6 @@
             </section>
         </main>
     </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const navButtons = document.querySelectorAll('.nav-button');
-    const contentSections = document.querySelectorAll('.content-section');
-
-    function switchTab(targetId) {
-        navButtons.forEach(button => {
-            if (button.dataset.target === targetId) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
-            }
-        });
-
-        contentSections.forEach(section => {
-            if (section.id === targetId) {
-                section.classList.add('active');
-            } else {
-                section.classList.remove('active');
-            }
-        });
-    }
-    
-    document.querySelector('nav').addEventListener('click', (event) => {
-        if (event.target.matches('.nav-button')) {
-            const targetId = event.target.dataset.target;
-            switchTab(targetId);
-        }
-    });
-
-    // Handle internal link click for VRChat section
-    window.switchTab = switchTab; // Make switchTab globally accessible for inline onclick
-
-    // Interactive Table
-    const tableRows = document.querySelectorAll('#format-table tbody tr');
-    tableRows.forEach(row => {
-        row.addEventListener('click', () => {
-            tableRows.forEach(r => r.style.backgroundColor = '');
-            row.style.backgroundColor = '#e2e8f0'; // slate-200
-        });
-    });
-});
-</script>
-
+    <script src="./main.js"></script>
 </body>
 </html>
