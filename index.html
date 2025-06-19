@@ -294,7 +294,7 @@
                           </table>
                         </div>
                         <div class="mt-6">
-                            <img src="https://placehold.jp/600x300/">
+                            <img src="img/02shortcut.png" alt="基本モデリング用ショートカットの例" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;>
                         </div>
                     </div>
                     
@@ -308,27 +308,24 @@
                                     <p class="ml-4 text-sm text-slate-600">Blenderを起動し、デフォルトのキューブを削除します。<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > メッシュ > キューブ を追加します。このキューブを体の中心とします。</p>
                                     <p class="ml-4 text-sm text-slate-600">オブジェクトを選択した状態で、プロパティエディタ（右側のNキーで表示されるサイドバー）のモディファイアープロパティ（レンチアイコン🔧）から「モディファイアーを追加」> 「ジェネレート」>「ミラー」を選択します。これで、片側を編集するだけで左右対称のモデルが作成されます。「クリッピング」にチェックを入れると、中心で頂点が結合されるため、作業がしやすくなります。</p>
                                     <!-- ユーザーが指定した画像挿入箇所 -->
-                                    <img src="img/02cube_mirror.png" alt="Blenderのミラーモディファイアーの例" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block">
+                                    <img src="img/03cube_mirror.png" alt="Blenderのミラーモディファイアーの例" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;>
                                 </li>
                                 <li>
                                     <span class="font-semibold">おおまかな形を作る:</span>
                                     <p class="ml-4 text-sm text-slate-600">オブジェクトモードから<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードに切り替えます。最初に体のベースとなるキューブを拡大・縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)して、胴体部分のサイズを決めます。</p>
                                     <p class="ml-4 text-sm text-slate-600">体の各部位（頭、胴体、腕、足）を意識しながら、面（Face）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出して新たな面を作成します。押し出し後に移動(<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>)や拡大縮小(<span class="font-mono bg-slate-100 px-1 rounded">Sキー</span>)を繰り返し、徐々に人型に近づけていきます。</p>
                                     <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+R</span>でループカットを入れ、頂点や辺を移動・調整することで、関節部分や曲線を作っていきます。例えば、腕の付け根やひざ、ひじのあたりにループカットを追加すると、後からの整形がしやすくなります。</p>
-                                    <div class="ml-4 mt-4">
-                                        <img src="https://placehold.jp/500x300/">
-                                    </div>
+                                    
                                 </li>
                                 <li>
                                     <span class="font-semibold">プロポーションの調整:</span>
                                     <p class="ml-4 text-sm text-slate-600">視点を頻繁に変えながら、全体のプロポーションが三頭身になるよう調整します。頭の大きさを基準に、胴体が約1つ半、足が約1つ半の長さになるよう心がけましょう。編集モードで頂点（Vertex）を選択し、<span class="font-mono bg-slate-100 px-1 rounded">Gキー</span>で移動させることで、細かく形状を調整できます。</p>
-                                    <div class="ml-4 mt-4">
-                                        <img src="https://placehold.jp/500x300/">
-                                    </div>
+                                    
                                 </li>
                                 <li>
                                     <span class="font-semibold">ディテールの追加（オプション）:</span>
                                     <p class="ml-4 text-sm text-slate-600">必要なら、肩、腰、手、足の指などのディテールを追加します。細分化サーフェスモディファイアー（サブディビジョンサーフェス）を追加すると、モデルを滑らかに表示できます。</p>
+                                    <img src="img/04chara_modeling01.png" alt="Boxからキャラクターまで" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
                                 </li>
                             </ol>
                         </div>
@@ -341,7 +338,7 @@
                                     <span class="font-semibold">UV編集ワークスペースへの切り替え:</span>
                                     <p class="ml-4 text-sm text-slate-600">Blenderの上部にあるワークスペースのタブから「UV Editing」を選択します。画面が2つに分割され、左側にUVエディタ、右側に3Dビューポートが表示されます。</p>
                                     <div class="ml-4 mt-4">
-                                        <img src="https://placehold.jp/600x350/">
+                                        <img src="img/10UV.png" alt="UV編集画面" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
                                     </div>
                                 </li>
                                 <li>
@@ -349,13 +346,14 @@
                                     <p class="ml-4 text-sm text-slate-600">3Dビューポートでオブジェクトを<span class="font-mono bg-slate-100 px-1 rounded">Tabキー</span>で編集モードにします。辺（Edge）を選択モードに切り替え、UV展開したい部分の「切り開く」辺を選択します。</p>
                                     <p class="ml-4 text-sm text-slate-600">選択した辺の上で右クリックし、「<strong>シームをマーク</strong>」を選択します。これにより、その辺が赤く表示され、UV展開時の「切り目」となります。衣服の縫い目を想像すると分かりやすいでしょう。</p>
                                     <p class="ml-4 text-sm text-slate-600">全身のモデルの場合、腕や脚の内側、背中の中央、首の付け根などにシームを入れるのが一般的です。</p>
+                                    <img src="img/05chara_seam01.png" alt="シームをマークする" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
                                 </li>
                                 <li>
                                     <span class="font-semibold">UV展開の実行:</span>
                                     <p class="ml-4 text-sm text-slate-600">全ての面を選択（<span class="font-mono bg-slate-100 px-1 rounded">Aキー</span>）した状態で、3Dビューポートのメニューから「UV」>「**展開**」を選択します。または、<span class="font-mono bg-slate-100 px-1 rounded">Uキー</span>を押して「展開」を選択します。</p>
                                     <p class="ml-4 text-sm text-slate-600">これで、UVエディタ（左側の画面）に、切り開かれたモデルの2D形状が表示されます。</p>
                                     <div class="ml-4 mt-4">
-                                        <img src="https://placehold.jp/500x300/">
+                                        <img src="img/06chara_UV.png" alt="UV展開結果" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
                                     </div>
                                 </li>
                                 <li>
@@ -384,6 +382,7 @@
                                     <span class="font-semibold">テクスチャの読み込みと適用:</span>
                                     <p class="ml-4 text-sm text-slate-600">「画像テクスチャ」ノードの「開く」ボタンをクリックし、準備したテクスチャ画像ファイルを読み込みます。</p>
                                     <p class="ml-4 text-sm text-slate-600">これで、UV展開されたモデルにテクスチャが適用され、ビューポート上で確認できます。必要に応じて、ノーマルマップやラフネスマップなどの他のテクスチャも同様に設定すれば、より複雑な質感を表現できます。</p>
+                                    <img src="img/07UV_color.png" alt="テクスチャーの作成" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
                                 </li>
                             </ol>
                         </div>
@@ -396,9 +395,7 @@
                                     <span class="font-semibold">アーマチュアの追加:</span>
                                     <p class="ml-4 text-sm text-slate-600">オブジェクトモードで、<span class="font-mono bg-slate-100 px-1 rounded">Shift+A</span> > アーマチュア > シングルボーン を選択し、ボーンを追加します。</p>
                                     <p class="ml-4 text-sm text-slate-600">追加したボーンを選択し、プロパティエディタ（右側の緑の人型アイコン👤）の「ビューポート表示」セクションで「最前面」にチェックを入れると、モデルの中に埋もれずにボーンが見えるようになります。</p>
-                                    <div class="ml-4 mt-4">
-                                        <img src="https://placehold.jp/500x300/">
-                                    </div>
+                                    
                                 </li>
                                 <li>
                                     <span class="font-semibold">ボーンの配置:</span>
@@ -406,7 +403,7 @@
                                     <p class="ml-4 text-sm text-slate-600">ボーンの端点から<span class="font-mono bg-slate-100 px-1 rounded">Eキー</span>で押し出すと、新しいボーンを作成できます。首、背骨、腕、脚、指など、必要なボーンを階層構造（親子関係）で作成していきます。</p>
                                     <p class="ml-4 text-sm text-slate-600">ミラーモディファイアーと同様に、アーマチュアのプロパティ（緑の人型アイコン👤）の「X軸ミラー」にチェックを入れると、左右対称でボーンを配置できます。</p>
                                     <div class="ml-4 mt-4">
-                                        <img src="https://placehold.jp/500x350/">
+                                        <img src="img/08bone.png" alt="ボーンの配置" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
                                     </div>
                                 </li>
                                 <li>
@@ -415,11 +412,17 @@
                                     <p class="ml-4 text-sm text-slate-600">最初にモデル（メッシュ）を選択し、次に<span class="font-mono bg-slate-100 px-1 rounded">Shiftキー</span>を押しながら作成したアーマチュアを選択します。</p>
                                     <p class="ml-4 text-sm text-slate-600"><span class="font-mono bg-slate-100 px-1 rounded">Ctrl+P</span>キーを押し、メニューから「<strong>自動ウェイトで</strong>」を選択します。これで、モデルの頂点が最も近いボーンに自動的に追従するよう設定されます。</p>
                                     <p class="ml-4 text-sm text-slate-600">必要に応じて、「ウェイトペイントモード」に切り替えて、各ボーンがモデルのどの部分に影響を与えるかを細かく調整できます。赤（強い影響）から青（影響なし）のグラデーションで表示されます。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="img/09weight.png" alt="ボーンのウェイトペイント" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
+                                    </div>
                                 </li>
                                 <li>
                                     <span class="font-semibold">ポーズモードでの確認:</span>
                                     <p class="ml-4 text-sm text-slate-600">アーマチュアを選択した状態で、オブジェクトモードから「ポーズモード」に切り替えます。</p>
                                     <p class="ml-4 text-sm text-slate-600">各ボーンを選択して回転(<span class="font-mono bg-slate-100 px-1 rounded">Rキー</span>)させてみて、モデルが意図通りに変形するか確認します。不自然な変形があれば、ウェイトペイントモードで調整します。</p>
+                                    <div class="ml-4 mt-4">
+                                        <img src="img/11pose.png" alt="ポーズモードでの確認" class="w-full h-auto rounded-lg mt-4 mb-4 object-cover mx-auto block"style="width:600px; height:400px;">
+                                    </div>
                                 </li>
                             </ol>
                         </div>
